@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
+import { enUS } from "date-fns/locale";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import { useEffect, useState } from "react";
@@ -10,16 +11,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getAppointments } from "../services/axios";
 import { organizeAppointments } from "../utils";
 
-const locales = {
-  "en-US": require("date-fns/locale/en-US"),
-};
-
 const localizer = dateFnsLocalizer({
   format,
   parse,
   startOfWeek,
   getDay,
-  locales,
+  enUS,
 });
 
 export default function Scheduler() {
