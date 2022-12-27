@@ -3,12 +3,10 @@ import getDay from "date-fns/getDay";
 import { enUS } from "date-fns/locale";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import { useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { getAppointments } from "../services/axios";
-import { organizeAppointments } from "../utils";
+import useAppointments from "../hooks/useAppointments";
 
 const locales = {
   "en-US": enUS,
@@ -46,19 +44,8 @@ export default function Scheduler() {
     };
   };
 
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useAppointments();
 
-  useEffect(
-    () => {
-      getAppointments().then((data) => {
-        setAppointments(organizeAppointments(data));
-      });
-    },
-
-    // Dep Array - leave empty to this only runs on the first side effect (browser render)
-    []
-  );
-  console.log(appointments);
   return (
     <div>
       <Calendar
