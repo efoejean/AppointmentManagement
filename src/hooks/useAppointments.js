@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAppointments } from "../api/axios";
+import { getAppointments } from "../services/axios";
 import { organizeAppointments } from "../utils";
 
 export default function useAppointments() {
