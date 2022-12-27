@@ -17,3 +17,15 @@ export const paginateAppointments = ({
   rowsPerPage,
 }) =>
   appointList.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage);
+
+export const filterAppointments = (appointList, search) => {
+  if (search === "") return appointList;
+  return appointList.filter((appoint) => {
+    const { clientName, clientPhoneNumber, stylistName } = appoint;
+    return (
+      clientName.toLowerCase().includes(search.toLowerCase()) ||
+      clientPhoneNumber.toLowerCase().includes(search.toLowerCase()) ||
+      stylistName.toLowerCase().includes(search.toLowerCase())
+    );
+  });
+};
