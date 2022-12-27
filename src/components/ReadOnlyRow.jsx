@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 export default function ReadOnlyRow({ appointment, handleEdit }) {
   return (
     <TableRow key={appointment.id}>
+      <TableCell align="center">
+        {new Date(appointment.appointment_date).toLocaleDateString()}
+      </TableCell>
       <TableCell align="center">{appointment.clientName}</TableCell>
       <TableCell align="center">{appointment.clientPhoneNumber}</TableCell>
       <TableCell align="center">{appointment.deposit}</TableCell>
@@ -16,9 +19,7 @@ export default function ReadOnlyRow({ appointment, handleEdit }) {
           currency: "USD",
         }).format(appointment.price)}
       </TableCell>
-      <TableCell align="center">
-        {new Date(appointment.appointment_date).toLocaleDateString()}
-      </TableCell>
+
       <TableCell align="center">{appointment.status}</TableCell>
       <TableCell align="center">
         <Button>
