@@ -11,3 +11,17 @@ function reducer(state, action) {
     currentData,
   };
 }
+
+export default function usePagination(data, rowsPerPage) {
+  const [pagination, dispatchPagination] = useReducer(reducer, {
+    currentPage: 1,
+    currentData: data.slice(0, rowsPerPage),
+    fullData: data,
+    rowsPerPage,
+  });
+
+  const maxPage = Math.ceil(data.length / rowsPerPage);
+  const { currentPage, currentData } = pagination;
+
+  return { currentData, currentPage, maxPage, dispatchPagination };
+}
