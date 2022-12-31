@@ -2,9 +2,8 @@ import { Table as MuiTable } from "@mui/material";
 import PropTypes from "prop-types";
 import TBody from "./TBody";
 import Thead from "./Thead";
-import usePagination from "../../hooks/usePagination";
 
-export default function Table({
+export default function MTable({
   data,
   headCells,
   isEdit,
@@ -13,7 +12,7 @@ export default function Table({
   handleEdit,
 }) {
   return (
-    <MuiTable className="tbody">
+    <MuiTable stickyHeader>
       <Thead headCells={headCells} />
       <TBody
         isEdit={isEdit}
@@ -25,11 +24,11 @@ export default function Table({
     </MuiTable>
   );
 }
-Table.propTypes = {
+MTable.propTypes = {
   data: PropTypes.array.isRequired,
   headCells: PropTypes.array.isRequired,
-  isEdit: PropTypes.number.isRequired,
-  editForm: PropTypes.object.isRequired,
+  isEdit: PropTypes.string,
+  editForm: PropTypes.object,
   handleEditChange: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
 };
