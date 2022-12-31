@@ -1,8 +1,8 @@
 import { useReducer } from "react";
-import { getCurrentData, getCurrentPageData } from "../utils/pagination";
+import { getCurrentData, getCurrentPage } from "../utils/pagination";
 
 function reducer(state, action) {
-  const currentPage = getCurrentPageData(state, action.type);
+  const currentPage = getCurrentPage(state, action.type);
   const currentData = getCurrentData(state, currentPage);
 
   return {
@@ -12,7 +12,7 @@ function reducer(state, action) {
   };
 }
 
-export default function usePagination(data, rowsPerPage) {
+export default function usePagination(data, rowsPerPage = 10) {
   const [pagination, dispatchPagination] = useReducer(reducer, {
     currentPage: 1,
     currentData: data.slice(0, rowsPerPage),
@@ -21,7 +21,7 @@ export default function usePagination(data, rowsPerPage) {
   });
 
   const maxPage = Math.ceil(data.length / rowsPerPage);
-  const { currentPage, currentData } = pagination;
+  const { currentData, currentPage } = pagination;
 
   return { currentData, currentPage, maxPage, dispatchPagination };
 }
