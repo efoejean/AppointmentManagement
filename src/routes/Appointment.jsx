@@ -4,7 +4,6 @@ import {
   Table,
   TableBody,
   TableContainer,
-  TablePagination,
   Toolbar,
 } from "@mui/material";
 import { Fragment, useState } from "react";
@@ -31,15 +30,10 @@ const headCells = [
   { id: "actionsCancel", label: "Cancel" },
 ];
 
-const pages = [25];
-
 export default function Appointment() {
   const [appointments, setAppointments] = useAppointments();
 
   const { TblHead } = useTable(appointments, headCells);
-  const [page, setPage] = useState(0);
-
-  const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -82,9 +76,6 @@ export default function Appointment() {
     updateOneAppointment(isEdit, editForm).then((data) => {});
 
     setIsEdit(null);
-  };
-  const handleChangePage = (newPage) => {
-    setPage(newPage);
   };
 
   const handleSearch = (e) => {
@@ -130,15 +121,6 @@ export default function Appointment() {
           </Table>
         </form>
       </TableContainer>
-      <TablePagination
-        component="div"
-        page={page}
-        // Total count of number of points
-        count={appointments.length}
-        rowsPerPageOptions={pages}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handleChangePage}
-      />
     </div>
   );
 }
