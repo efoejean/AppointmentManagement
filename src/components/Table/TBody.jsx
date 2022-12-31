@@ -1,8 +1,8 @@
-import { Fragment } from "react";
+import { TableBody } from "@mui/material";
 import PropTypes from "prop-types";
-import EditableRow from "./EditableRow";
-import ReadOnlyRow from "./ReadOnlyRow";
-
+import { Fragment } from "react";
+import EditableRow from "../EditableRow";
+import ReadOnlyRow from "../ReadOnlyRow";
 export default function TBody({
   data,
   isEdit,
@@ -11,7 +11,7 @@ export default function TBody({
   handleEdit,
 }) {
   return (
-    <tableBody>
+    <TableBody>
       {data.map((dataRow) => (
         <Fragment key={dataRow.id}>
           {isEdit === dataRow.id ? (
@@ -28,14 +28,14 @@ export default function TBody({
           )}
         </Fragment>
       ))}
-    </tableBody>
+    </TableBody>
   );
 }
 
 TBody.propTypes = {
   data: PropTypes.array.isRequired,
-  isEdit: PropTypes.number.isRequired,
-  editForm: PropTypes.object.isRequired,
+  isEdit: PropTypes.string,
+  editForm: PropTypes.object,
   handleEditChange: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
 };

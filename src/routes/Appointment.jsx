@@ -1,18 +1,9 @@
-import {
-  Button,
-  Paper,
-  Table,
-  TableBody,
-  TableContainer,
-  Toolbar,
-} from "@mui/material";
-import { Fragment, useState } from "react";
+import { Button, Paper, TableContainer, Toolbar } from "@mui/material";
+import { useState } from "react";
 import AppointmentModal from "../components/AppointmentModal";
-import EditableRow from "../components/EditableRow";
-import ReadOnlyRow from "../components/ReadOnlyRow";
 import SearchBar from "../components/SearchBar";
+import MTable from "../components/Table/MTable";
 import useAppointments from "../hooks/useAppointments";
-import useTable from "../hooks/useTable";
 import { updateOneAppointment } from "../services/axios";
 import { filterAppointments } from "../utils";
 
@@ -32,8 +23,6 @@ const headCells = [
 
 export default function Appointment() {
   const [appointments, setAppointments] = useAppointments();
-
-  const { TblHead } = useTable(appointments, headCells);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -97,30 +86,39 @@ export default function Appointment() {
       </Toolbar>
       <TableContainer component={Paper} sx={{ maxHeight: "" }}>
         <form onSubmit={handleEditSubmit}>
-          <Table stickyHeader>
-            <TblHead />
-            <TableBody className="">
-              {/* Take each appointment and create a TableRow */}
-              {appointments.map((appointment) => (
-                <Fragment key={appointment.id}>
-                  {isEdit === appointment.id ? (
-                    <EditableRow
-                      editForm={editForm}
-                      handleEditChange={handleEditChange}
-                    />
-                  ) : (
-                    <ReadOnlyRow
-                      key={appointment.id}
-                      appointment={appointment}
-                      handleEdit={handleEdit}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </TableBody>
-          </Table>
+          <MTable
+            headCells={headCells}
+            editForm={editForm}
+            isEdit={isEdit}
+            handleEditChange={handleEditChange}
+            handleEdit={handleEdit}
+            data={appointments}
+          />
         </form>
       </TableContainer>
     </div>
   );
 }
+
+// {/* <Table stickyHeader>
+// <TblHead />
+// <TableBody className="">
+// {/* Take each appointment and create a TableRow */}
+//   {appointments.map((appointment) => (
+//     <Fragment key={appointment.id}>
+//       {isEdit === appointment.id ? (
+//         <EditableRow
+//           editForm={editForm}
+//           handleEditChange={handleEditChange}
+//         />
+//       ) : (
+//         <ReadOnlyRow
+//           key={appointment.id}
+//           appointment={appointment}
+//           handleEdit={handleEdit}
+//         />
+//       )}
+//     </Fragment>
+//   ))}
+// </TableBody>
+// </Table> */}/>
