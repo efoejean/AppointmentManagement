@@ -1,5 +1,4 @@
 import {
-  Button,
   Table as MuiTable,
   TableCell,
   TableFooter,
@@ -18,11 +17,9 @@ export default function MTable({
   handleEditChange,
   handleEdit,
 }) {
-  const { currentData, currentPage, maxPage, dispatchPagination } =
-    usePagination(data);
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === maxPage;
+  const { currentData, maxPage, dispatchPagination } = usePagination(data);
 
+  console.log("Data", data);
   return (
     <MuiTable stickyHeader>
       <Thead headCells={headCells} />
@@ -36,23 +33,22 @@ export default function MTable({
       <TableFooter>
         <TableRow>
           <TableCell colSpan={headCells.length}>
-            <Button
-              className={isFirstPage ? "text-gray-500" : "text-blue-500"}
-              disabled={isFirstPage}
-              onClick={() => dispatchPagination({ type: "PREV" })}
-            >
-              Previous
-            </Button>
-            <Button
-              className={isLastPage ? "text-gray-500" : "text-blue-500"}
-              disabled={isLastPage}
-              onClick={() => dispatchPagination({ type: "NEXT" })}
-            >
-              Next
-            </Button>
-            <span>
-              {currentPage} / {maxPage}
-            </span>
+            <label htmlFor="page" className="sr-only">
+              Page
+            </label>
+            <input
+              id="page"
+              className="w-24 font-medium text-sky-700"
+              type="number"
+              placeholder="1"
+              onInput={() => {
+                const page = Number(event.target.value);
+                if (page >= 1 && page <= maxPage) {
+                  dispatchPagination({ payload: page });
+                }
+              }}
+            />
+            &nbsp;/&nbsp;{maxPage}
           </TableCell>
         </TableRow>
       </TableFooter>
