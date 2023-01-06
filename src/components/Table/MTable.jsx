@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import usePagination from "../../hooks/usePagination";
-import TBody from "./TBody";
+import TBody from "./MTBody";
 import Thead from "./Thead";
 
 export default function MTable({
