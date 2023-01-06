@@ -1,41 +1,16 @@
-import { TableBody } from "@mui/material";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
-import EditableRow from "../EditableRow";
-import ReadOnlyRow from "../ReadOnlyRow";
-export default function TBody({
-  data,
-  isEdit,
-  editForm,
-  handleEditChange,
-  handleEdit,
-}) {
+import TR from "./TR";
+
+export default function TBody({ data }) {
   return (
-    <TableBody>
+    <tbody>
       {data.map((dataRow) => (
-        <Fragment key={dataRow.id}>
-          {isEdit === dataRow.id ? (
-            <EditableRow
-              editForm={editForm}
-              handleEditChange={handleEditChange}
-            />
-          ) : (
-            <ReadOnlyRow
-              key={dataRow.id}
-              appointment={dataRow}
-              handleEdit={handleEdit}
-            />
-          )}
-        </Fragment>
+        <TR key={dataRow.id} dataRow={dataRow} id={dataRow.id} />
       ))}
-    </TableBody>
+    </tbody>
   );
 }
 
 TBody.propTypes = {
-  data: PropTypes.array.isRequired,
-  isEdit: PropTypes.string,
-  editForm: PropTypes.object,
-  handleEditChange: PropTypes.func.isRequired,
-  handleEdit: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 };
