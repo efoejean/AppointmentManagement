@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Appointment from "./routes/Appointment";
+import Appointments from "./routes/Appointments";
 import Root from "./routes/Root";
 
 import "./index.css";
@@ -11,8 +11,8 @@ const router = createBrowserRouter([
 
     children: [
       {
-        path: "/appointment",
-        element: <Appointment />,
+        path: "/appointments",
+        element: <Appointments />,
       },
     ],
   },

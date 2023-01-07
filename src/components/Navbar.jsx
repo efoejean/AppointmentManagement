@@ -42,7 +42,7 @@ export default function Navbar() {
               Create
             </Button>
             {isOpen && <AppointmentModal setIsOpen={setIsOpen} />}
-            <Button color="inherit" component={Link} to="/appointment">
+            <Button color="inherit" component={Link} to="/appointments">
               Appointments
             </Button>
             <Button color="inherit">Clients</Button>
