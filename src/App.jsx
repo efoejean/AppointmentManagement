@@ -1,6 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Appointments from "./routes/Appointments";
-import Root from "./routes/Root";
+import ErrorPage from "./components/error-page";
+import Appointment from "./routes/Appointment";
+import Contact from "./routes/contact";
+import Root, { loader as rootLoader } from "./routes/Root";
+import Scheduler from "./routes/Scheduler";
 
 import "./index.css";
 
@@ -8,11 +11,39 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+
+    // children: [
+    //   {
+    //     path: "contacts/:contactId",
+    //     element: <Contact />,
+    //   },
+    //   {
+    //     path: "/agenda",
+    //     element: <Schedule />,
+    //   },
+    //   {
+    //     path: "/appointments",
+    //     element: <Appointments />,
+    //     loader: loaderAppointment,
+    //   },
+    // ],
 
     children: [
       {
+        path: "contacts/:contactId",
+        element: <Contact />,
+      },
+      {
+        path: "/agenda",
+        element: <Scheduler />,
+        loader: rootLoader,
+      },
+      {
         path: "/appointments",
-        element: <Appointments />,
+        element: <Appointment />,
+        loader: rootLoader,
       },
     ],
   },
