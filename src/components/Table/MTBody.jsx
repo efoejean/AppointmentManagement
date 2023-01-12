@@ -1,8 +1,7 @@
-import { TableBody } from "@mui/material";
+import { EditOutlined } from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Button, TableBody, TableCell, TableRow } from "@mui/material";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
-import EditableRow from "../EditableRow";
-import ReadOnlyRow from "../ReadOnlyRow";
 export default function TBody({
   data,
   isEdit,
@@ -12,21 +11,37 @@ export default function TBody({
 }) {
   return (
     <TableBody>
-      {data.map((dataRow) => (
-        <Fragment key={dataRow.id}>
-          {isEdit === dataRow.id ? (
-            <EditableRow
-              editForm={editForm}
-              handleEditChange={handleEditChange}
-            />
-          ) : (
-            <ReadOnlyRow
-              key={dataRow.id}
-              appointment={dataRow}
-              handleEdit={handleEdit}
-            />
-          )}
-        </Fragment>
+      {data.map((appointment) => (
+        <TableRow key={appointment.id}>
+          <TableCell align="center">
+            {new Date(appointment.appointment_date).toLocaleDateString()}
+          </TableCell>
+          <TableCell align="center">{appointment.clientName}</TableCell>
+          <TableCell align="center">{appointment.clientPhoneNumber}</TableCell>
+          <TableCell align="center">{appointment.deposit}</TableCell>
+          <TableCell align="center">{appointment.service}</TableCell>
+          <TableCell align="center">
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(appointment.price)}
+          </TableCell>
+
+          <TableCell align="center">{appointment.status}</TableCell>
+          <TableCell align="center">
+            <Button>
+              <EditOutlined
+                fontSize="small"
+                onClick={(event) => handleEdit(event, appointment)}
+              />
+            </Button>
+          </TableCell>
+          <TableCell align="center">
+            <Button>
+              <CloseOutlinedIcon fontSize="small" />
+            </Button>
+          </TableCell>
+        </TableRow>
       ))}
     </TableBody>
   );

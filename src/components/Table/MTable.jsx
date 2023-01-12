@@ -1,12 +1,14 @@
+import { EditOutlined } from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import {
+  Button,
   Table as MuiTable,
+  TableBody,
   TableCell,
-  TableFooter,
   TableRow,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import usePagination from "../../hooks/usePagination";
-import TBody from "./MTBody";
+import { Link } from "react-router-dom";
 import Thead from "./Thead";
 
 export default function MTable({
@@ -17,41 +19,52 @@ export default function MTable({
   handleEditChange,
   handleEdit,
 }) {
-  const { currentData, maxPage, dispatchPagination } = usePagination(data);
-
   console.log("Data", data);
   return (
-    <MuiTable stickyHeader>
+    <MuiTable stickyHeader className="TableAppoint">
       <Thead headCells={headCells} />
-      <TBody
-        isEdit={isEdit}
-        editForm={editForm}
-        handleEditChange={handleEditChange}
-        handleEdit={handleEdit}
-        data={currentData}
-      />
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={headCells.length}>
-            <label htmlFor="page" className="sr-only">
-              Page
-            </label>
-            <input
-              id="page"
-              className="w-24 font-medium text-sky-700"
-              type="number"
-              placeholder="1"
-              onInput={() => {
-                const page = Number(event.target.value);
-                if (page >= 1 && page <= maxPage) {
-                  dispatchPagination({ payload: page });
-                }
-              }}
-            />
-            &nbsp;/&nbsp;{maxPage}
-          </TableCell>
-        </TableRow>
-      </TableFooter>
+
+      <TableBody>
+        {data.map((appointment) => (
+          <TableRow
+            as={Link}
+            to={`/appointments/${appointment.id}`}
+            className="truncate px-4 first:text-blue-500"
+            key={appointment.id}
+          >
+            <TableCell>
+              {new Date(appointment.appointment_date).toLocaleDateString()}
+            </TableCell>
+            <TableCell align="center mr-10">{appointment.clientName}</TableCell>
+            <TableCell align="center">
+              {appointment.clientPhoneNumber}
+            </TableCell>
+            <TableCell>{appointment.deposit}</TableCell>
+            <TableCell align="center">{appointment.service}</TableCell>
+            <TableCell align="center">
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(appointment.price)}
+            </TableCell>
+            <TableCell align="center">{appointment.status}</TableCell>
+
+            <TableCell align="center">
+              <Button>
+                <EditOutlined
+                  fontSize="small"
+                  onClick={(event) => handleEdit(event, appointment)}
+                />
+              </Button>
+            </TableCell>
+            <TableCell align="center">
+              <Button>
+                <CloseOutlinedIcon fontSize="small" />
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
     </MuiTable>
   );
 }
