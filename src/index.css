@@ -220,6 +220,7 @@
   #TableAppoint th {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
   }
 
   .TableAppoint tr:nth-child(even) {
@@ -233,7 +234,7 @@
   .TableAppoint th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #04aa6d;
     color: white;
   }

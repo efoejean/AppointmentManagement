@@ -35,21 +35,19 @@ export default function MTable({
             <TableCell>
               {new Date(appointment.appointment_date).toLocaleDateString()}
             </TableCell>
-            <TableCell align="center mr-10">{appointment.clientName}</TableCell>
-            <TableCell align="center">
-              {appointment.clientPhoneNumber}
-            </TableCell>
+            <TableCell>{appointment.clientName}</TableCell>
+            <TableCell>{appointment.clientPhoneNumber}</TableCell>
             <TableCell>{appointment.deposit}</TableCell>
-            <TableCell align="center">{appointment.service}</TableCell>
-            <TableCell align="center">
+            <TableCell>{appointment.service}</TableCell>
+            <TableCell>
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
               }).format(appointment.price)}
             </TableCell>
-            <TableCell align="center">{appointment.status}</TableCell>
+            <TableCell>{appointment.status}</TableCell>
 
-            <TableCell align="center">
+            <TableCell>
               <Button>
                 <EditOutlined
                   fontSize="small"
@@ -57,7 +55,7 @@ export default function MTable({
                 />
               </Button>
             </TableCell>
-            <TableCell align="center">
+            <TableCell>
               <Button>
                 <CloseOutlinedIcon fontSize="small" />
               </Button>
