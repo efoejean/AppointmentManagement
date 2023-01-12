@@ -18,7 +18,6 @@ export async function loader() {
 
 export default function Root() {
   const { appointmentsData } = useLoaderData();
-  console.log("ahha", appointmentsData);
   return (
     <div>
       <>
