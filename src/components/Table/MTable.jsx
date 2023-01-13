@@ -28,7 +28,7 @@ export default function MTable({
         {data.map((appointment) => (
           <TableRow
             as={Link}
-            to={`/appointments/${appointment.id}`}
+            to={`/appointment/id/${appointment.id}`}
             className="truncate px-4 first:text-blue-500"
             key={appointment.id}
           >

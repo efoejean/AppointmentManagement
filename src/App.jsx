@@ -1,51 +1,74 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./components/error-page";
-import Appointment from "./routes/Appointment";
-import Contact from "./routes/contact";
-import Root, { loader as rootLoader } from "./routes/Root";
-import Scheduler from "./routes/Scheduler";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
+import Table from "./components/Table/Table";
+import User from "./components/User";
+import Appointments from "./routes/Appointments";
+import Root from "./routes/Root";
+import {
+  createAppointment,
+  getAppointments,
+  updateOneAppointment,
+} from "./services/axios";
 
 import "./index.css";
+
+const createEditUser = async ({ request }) => {
+  const fd = await request.formData();
+  const createdEditedUser = Object.fromEntries(fd.entries());
+
+  try {
+    const { id } =
+      // 'id' may or may not be defined depending on whether we are creating or updating
+      createdEditedUser.id
+        ? await updateOneAppointment(createdEditedUser.id, createdEditedUser)
+        : await createAppointment(createdEditedUser);
+
+    // Must return a redirect action
+    return redirect(`/${id}`);
+  } catch (error) {
+    // TODO: redirect to error page
+    console.error(error);
+  }
+};
+
+const loadUsers = async () => {
+  const users = await getAppointments();
+
+  return { users };
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage />,
-    loader: rootLoader,
-
-    // children: [
-    //   {
-    //     path: "contacts/:contactId",
-    //     element: <Contact />,
-    //   },
-    //   {
-    //     path: "/agenda",
-    //     element: <Schedule />,
-    //   },
-    //   {
-    //     path: "/appointments",
-    //     element: <Appointments />,
-    //     loader: loaderAppointment,
-    //   },
-    // ],
-
+    loader: loadUsers,
+    action: createEditUser,
     children: [
       {
-        path: "contacts/:contactId",
-        element: <Contact />,
-      },
-      {
-        path: "/agenda",
-        element: <Scheduler />,
-        loader: rootLoader,
+        path: "",
+        element: <Table />,
       },
       {
         path: "/appointments",
-        element: <Appointment />,
-        loader: rootLoader,
+        element: <Appointments />,
+        loader: loadUsers,
+      },
+      {
+        path: "/appointment/:id",
+        element: <User />,
+      },
+      {
+        path: ":id",
+        element: <User />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: redirect("/"),
   },
 ]);
 

@@ -1,16 +1,21 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+
 export default function TR({ dataRow, id }) {
+  console.log("TR", dataRow, id);
   return (
     <tr>
       {Object.values(dataRow).map((item, index) => (
-        <td key={index}>
-          <Link to={id}>
-            {item.length > 20 ? item.slice(0, 20) + "..." : item}
+        <td key={index} className="truncate px-4 first:text-blue-500">
+          <Link to={`/appointment/${id}`}>
+            {" "}
+            {item.length > 24 ? item.substring(0, 24) + "..." : item}
           </Link>
         </td>
       ))}
-      <td>Cancel</td>
+      <td className="px-4 text-red-500">
+        <Link to={`/delete/${id}`}>Delete</Link>
+      </td>
     </tr>
   );
 }

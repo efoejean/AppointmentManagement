@@ -1,74 +1,91 @@
-import { Link, Outlet, useLoaderData } from "react-router-dom";
-import Navbar from "../components/navbar";
-import { getAppointments } from "../services/axios";
-
-export async function loader() {
-  const appointments = await getAppointments();
-  const appointmentsData = appointments.map((appointment) => {
-    return {
-      ...appointment,
-      start: new Date(appointment.appointment_date),
-      end: new Date(appointment.appointment_date),
-      stylist: appointment.stylistName,
-      title: appointment.clientName + " / " + appointment.service,
-    };
-  });
-  return { appointmentsData };
-}
+/* eslint-disable camelcase */
+import {
+  Form,
+  Link,
+  Outlet,
+  useLoaderData,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
+import { TextInput } from "../components/Form";
 
 export default function Root() {
-  const { appointmentsData } = useLoaderData();
+  // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
+  const { users } = useLoaderData();
+
+  console.log(users);
+  // If we have this, we will populate the form with the data of the current user
+  const { id } = useParams();
+  const currentUser = users.find((user) => user.id === id);
+
+  const submit = useSubmit();
+
+  const tableData = users.map(
+    ({ id, clientPhoneNumber, clientName, price, appointment_date }) => ({
+      id,
+      clientPhoneNumber,
+      clientName,
+      price,
+      appointment_date,
+    })
+  );
+
   return (
-    <div>
-      <>
-        <Navbar />
-        <div id="sidebar">
-          <h1>React Router Contacts</h1>
-          <div>
-            <form id="search-form" role="search">
-              <input
-                id="q"
-                aria-label="Search contacts"
-                placeholder="Search"
-                type="search"
-                name="q"
+    <>
+      <h1 className="mt-4 mb-8 text-center text-3xl font-bold underline">
+        <Link to="/">Contacts</Link>
+      </h1>
+      <main className="mx-8 flex flex-col gap-y-4">
+        <Form
+          className="flex flex-col items-center border-y"
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const fd = new FormData(form);
+            if (currentUser) fd.set("id", currentUser.id);
+
+            // Clear the form before submitting
+            form.reset();
+            submit(fd, { method: "post" });
+          }}
+        >
+          <fieldset>
+            <legend className="my-4 w-full text-center font-semibold">
+              Create a New Contact (all fields required)
+            </legend>
+            <div className="flex flex-col gap-4 md:flex-row">
+              <TextInput
+                id="clientPhoneNumber"
+                pattern="\w(\s?\w)*"
+                placeholder="Full Name (e.g. John Doe)"
+                defaultValue={currentUser?.clientPhoneNumber}
               />
-              <div id="search-spinner" aria-hidden hidden={true} />
-              <div className="sr-only" aria-live="polite"></div>
-            </form>
-            <form method="post">
-              <button type="submit">New</button>
-            </form>
-          </div>
-          <nav>
-            {appointmentsData.length ? (
-              <ul>
-                {appointmentsData.map((contact) => (
-                  <li key={contact.id}>
-                    <Link to={`contacts/${contact.id}`}>
-                      {contact.clientPhoneNumber || contact.clientName ? (
-                        <>
-                          {contact.clientPhoneNumber} {contact.clientName}
-                        </>
-                      ) : (
-                        <i>No Name</i>
-                      )}{" "}
-                      {contact.favorite && <span>★</span>}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>
-                <i>No contacts</i>
-              </p>
-            )}
-          </nav>
-        </div>
-        <div id="detail">
-          <Outlet />
-        </div>
-      </>
-    </div>
+              <TextInput
+                id="clientName"
+                pattern="\w{3,16}"
+                placeholder="clientName (3-16 chars)"
+                defaultValue={currentUser?.clientName}
+              />
+              <TextInput id="phrase" defaultValue={currentUser?.phrase} />
+              <TextInput
+                id="avatar"
+                type="url"
+                placeholder="Enter URL for Avatar"
+                defaultValue={currentUser?.avatar}
+              />
+            </div>
+          </fieldset>
+          <button
+            className="my-6 w-max rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
+            type="submit"
+          >
+            {currentUser ? "Edit" : "Submit"}
+          </button>
+        </Form>
+
+        <Outlet context={{ data: users, tableData }} />
+      </main>
+    </>
   );
 }

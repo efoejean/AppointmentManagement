@@ -5,8 +5,12 @@ import AppointmentModal from "../components/AppointmentModal";
 import SearchBar from "../components/SearchBar";
 import MTable from "../components/Table/MTable";
 import useAppointments from "../hooks/useAppointments";
-import { updateOneAppointment } from "../services/axios";
+import { getAppointments } from "../services/axios";
 import { filterAppointments } from "../utils";
+
+export async function loader({ params }) {
+  return getAppointments(params.id);
+}
 
 // Keep this out of component as it is not a tracked piece of state - no need for any reload/re-rendering
 const headCells = [
@@ -25,50 +29,12 @@ const headCells = [
 export default function Appointment() {
   const { appointmentsData } = useLoaderData();
 
+  const appoint = useLoaderData();
+  console.log("appoint", appoint);
+
   const [appointments, setAppointments] = useAppointments();
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const [isEdit, setIsEdit] = useState(null);
-
-  const [editForm, setEditForm] = useState({
-    clientName: "",
-    clientPhoneNumber: "",
-    deposit: "",
-    service: "",
-    price: "",
-    appointment_date: "",
-  });
-
-  const handleEditChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setEditForm((PrevState) => ({
-      ...PrevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleEdit = (event, appointment) => {
-    event.preventDefault();
-    const formValues = {
-      clientName: appointment.title,
-      clientPhoneNumber: appointment.clientPhoneNumber,
-      deposit: appointment.deposit,
-      service: appointment.service,
-      price: appointment.price,
-      appointment_date: appointment.appointment_date,
-    };
-    setEditForm(formValues);
-    setIsEdit(appointment.id);
-  };
-
-  const handleEditSubmit = (e) => {
-    e.preventDefault();
-
-    updateOneAppointment(isEdit, editForm).then((data) => {});
-
-    setIsEdit(null);
-  };
 
   const handleSearch = (e) => {
     setAppointments(filterAppointments(appointments, e.target.value));
@@ -88,14 +54,7 @@ export default function Appointment() {
         {isOpen && <AppointmentModal setIsOpen={setIsOpen} />}
       </Toolbar>
       <TableContainer component={Paper} sx={{ maxHeight: "" }}>
-        <form onSubmit={handleEditSubmit}>
-          <MTable
-            headCells={headCells}
-            handleEditChange={handleEditChange}
-            handleEdit={handleEdit}
-            data={appointmentsData}
-          />
-        </form>
+        <MTable headCells={headCells} data={appointmentsData} />
       </TableContainer>
     </div>
   );
