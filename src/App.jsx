@@ -55,6 +55,7 @@ const router = createBrowserRouter([
         path: "/appointments",
         element: <Appointments />,
         loader: loadUsers,
+        action: createEditUser,
       },
       {
         path: "/appointment/:id",

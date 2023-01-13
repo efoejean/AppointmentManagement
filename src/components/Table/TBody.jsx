@@ -1,13 +1,13 @@
+import { TableBody } from "@mui/material";
 import PropTypes from "prop-types";
 import TR from "./TR";
-
 export default function TBody({ data }) {
   return (
-    <tbody>
+    <TableBody>
       {data.map((dataRow) => (
         <TR key={dataRow.id} dataRow={dataRow} id={dataRow.id} />
       ))}
-    </tbody>
+    </TableBody>
   );
 }
 

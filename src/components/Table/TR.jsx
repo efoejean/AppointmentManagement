@@ -1,22 +1,33 @@
+import { EditOutlined } from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Button, TableCell, TableRow } from "@mui/material";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
 export default function TR({ dataRow, id }) {
-  console.log("TR", dataRow, id);
   return (
-    <tr>
+    <TableRow>
       {Object.values(dataRow).map((item, index) => (
-        <td key={index} className="truncate px-4 first:text-blue-500">
+        <TableCell key={index} className="truncate px-4 first:text-blue-500">
           <Link to={`/appointment/${id}`}>
             {" "}
             {item.length > 24 ? item.substring(0, 24) + "..." : item}
           </Link>
-        </td>
+        </TableCell>
       ))}
-      <td className="px-4 text-red-500">
-        <Link to={`/delete/${id}`}>Delete</Link>
-      </td>
-    </tr>
+      <TableCell align="center">
+        <Button>
+          <EditOutlined
+            fontSize="small"
+            onClick={(event) => handleEdit(event, appointment)}
+          />
+        </Button>
+      </TableCell>
+      <TableCell align="center">
+        <Button>
+          <CloseOutlinedIcon fontSize="small" />
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 }
 

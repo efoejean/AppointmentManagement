@@ -21,12 +21,24 @@ export default function Appointments() {
   const submit = useSubmit();
 
   const tableData = users.map(
-    ({ id, clientPhoneNumber, clientName, price, appointment_date }) => ({
+    ({
       id,
-      clientPhoneNumber,
-      clientName,
-      price,
       appointment_date,
+      clientName,
+      clientPhoneNumber,
+      deposit,
+      service,
+      price,
+      status,
+    }) => ({
+      id,
+      appointment_date,
+      clientName,
+      clientPhoneNumber,
+      deposit,
+      service,
+      price,
+      status,
     })
   );
 

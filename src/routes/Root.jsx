@@ -8,6 +8,7 @@ import {
   useSubmit,
 } from "react-router-dom";
 import { TextInput } from "../components/Form";
+import Navbar from "../components/Navbar";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
@@ -21,17 +22,30 @@ export default function Root() {
   const submit = useSubmit();
 
   const tableData = users.map(
-    ({ id, clientPhoneNumber, clientName, price, appointment_date }) => ({
+    ({
       id,
-      clientPhoneNumber,
-      clientName,
-      price,
       appointment_date,
+      clientName,
+      clientPhoneNumber,
+      deposit,
+      service,
+      price,
+      status,
+    }) => ({
+      id,
+      appointment_date,
+      clientName,
+      clientPhoneNumber,
+      deposit,
+      service,
+      price,
+      status,
     })
   );
 
   return (
     <>
+      <Navbar />
       <h1 className="mt-4 mb-8 text-center text-3xl font-bold underline">
         <Link to="/">Contacts</Link>
       </h1>

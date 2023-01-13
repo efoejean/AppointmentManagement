@@ -1,20 +1,21 @@
+import { TableCell, TableHead, TableRow } from "@mui/material";
 import startCase from "lodash.startcase";
 import PropTypes from "prop-types";
 
-export default function TH({ headers }) {
+export default function TH({ headCells }) {
   return (
-    <thead>
-      <tr>
-        {headers.map((header, index) => (
-          <th key={index} className="bg-slate-50 text-left text-slate-400">
-            {startCase(header)}
-          </th>
+    <TableHead className="thead">
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell align="center" key={headCell.id}>
+            {startCase(headCell.label)}
+          </TableCell>
         ))}
-      </tr>
-    </thead>
+      </TableRow>
+    </TableHead>
   );
 }
 
 TH.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  headCells: PropTypes.array.isRequired,
 };
