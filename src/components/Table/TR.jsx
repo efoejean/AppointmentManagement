@@ -8,13 +8,13 @@ export default function TR({ dataRow, id }) {
     <TableRow>
       {Object.values(dataRow).map((item, index) => (
         <TableCell key={index} className="truncate px-4 first:text-blue-500">
-          <Link to={`/appointment/${id}`}>
+          <Link to={id}>
             {" "}
             {item.length > 24 ? item.substring(0, 24) + "..." : item}
           </Link>
         </TableCell>
       ))}
-      <TableCell align="center">
+      <TableCell>
         <Button>
           <EditOutlined
             fontSize="small"
@@ -22,9 +22,9 @@ export default function TR({ dataRow, id }) {
           />
         </Button>
       </TableCell>
-      <TableCell align="center">
+      <TableCell>
         <Button>
-          <CloseOutlinedIcon fontSize="small" />
+          <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
         </Button>
       </TableCell>
     </TableRow>

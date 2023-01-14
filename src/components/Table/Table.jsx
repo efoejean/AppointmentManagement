@@ -1,14 +1,13 @@
 import usePagination from "@/hooks/usePagination";
-import { useOutletContext } from "react-router-dom";
-import TBody from "./TBody";
-import TH from "./TH";
-
 import {
   Table as MuiTable,
   TableCell,
   TableFooter,
   TableRow,
 } from "@mui/material";
+import { Link, useOutletContext } from "react-router-dom";
+import TBody from "./TBody";
+import TH from "./TH";
 export default function Table() {
   const { tableData } = useOutletContext();
   const { currentData, maxPage, dispatchPagination } = usePagination(tableData);
@@ -29,7 +28,7 @@ export default function Table() {
   const headers = Object.keys(tableData[0]);
 
   return (
-    <MuiTable className="container mx-auto max-w-max table-fixed md:table-auto">
+    <MuiTable className="TableAppoint">
       <TH headCells={headCells} />
       <TBody data={currentData} />
       <TableFooter>
@@ -41,6 +40,12 @@ export default function Table() {
             <label htmlFor="page" className="sr-only">
               Page
             </label>
+            <Link to={"/"} className="white mr-4">
+              ⬅️ Prev
+            </Link>
+            <Link to={"/"} className="white">
+              Next ➡️
+            </Link>
             <input
               id="page"
               className="w-24 font-medium text-sky-700"

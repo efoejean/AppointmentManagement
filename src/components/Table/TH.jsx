@@ -7,9 +7,7 @@ export default function TH({ headCells }) {
     <TableHead className="thead">
       <TableRow>
         {headCells.map((headCell) => (
-          <TableCell align="center" key={headCell.id}>
-            {startCase(headCell.label)}
-          </TableCell>
+          <TableCell key={headCell.id}>{startCase(headCell.label)}</TableCell>
         ))}
       </TableRow>
     </TableHead>

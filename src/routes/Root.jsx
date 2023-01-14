@@ -12,16 +12,18 @@ import Navbar from "../components/Navbar";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
-  const { users } = useLoaderData();
+  const { AppointmentsData } = useLoaderData();
 
-  console.log(users);
+  console.log(AppointmentsData);
   // If we have this, we will populate the form with the data of the current user
   const { id } = useParams();
-  const currentUser = users.find((user) => user.id === id);
+  const currentAppointment = AppointmentsData.find(
+    (appointment) => appointment.id === id
+  );
 
   const submit = useSubmit();
 
-  const tableData = users.map(
+  const tableData = AppointmentsData.map(
     ({
       id,
       appointment_date,
@@ -47,7 +49,7 @@ export default function Root() {
     <>
       <Navbar />
       <h1 className="mt-4 mb-8 text-center text-3xl font-bold underline">
-        <Link to="/">Contacts</Link>
+        <Link to="/"></Link>
       </h1>
       <main className="mx-8 flex flex-col gap-y-4">
         <Form
@@ -57,7 +59,7 @@ export default function Root() {
 
             const form = e.target;
             const fd = new FormData(form);
-            if (currentUser) fd.set("id", currentUser.id);
+            if (currentAppointment) fd.set("id", currentAppointment.id);
 
             // Clear the form before submitting
             form.reset();
@@ -70,23 +72,26 @@ export default function Root() {
             </legend>
             <div className="flex flex-col gap-4 md:flex-row">
               <TextInput
-                id="clientPhoneNumber"
+                id="clientPhone"
                 pattern="\w(\s?\w)*"
                 placeholder="Full Name (e.g. John Doe)"
-                defaultValue={currentUser?.clientPhoneNumber}
+                defaultValue={currentAppointment?.clientPhoneNumber}
               />
               <TextInput
                 id="clientName"
                 pattern="\w{3,16}"
                 placeholder="clientName (3-16 chars)"
-                defaultValue={currentUser?.clientName}
+                defaultValue={currentAppointment?.clientName}
               />
-              <TextInput id="phrase" defaultValue={currentUser?.phrase} />
+              <TextInput
+                id="phrase"
+                defaultValue={currentAppointment?.phrase}
+              />
               <TextInput
                 id="avatar"
                 type="url"
                 placeholder="Enter URL for Avatar"
-                defaultValue={currentUser?.avatar}
+                defaultValue={currentAppointment?.avatar}
               />
             </div>
           </fieldset>
@@ -94,11 +99,11 @@ export default function Root() {
             className="my-6 w-max rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
             type="submit"
           >
-            {currentUser ? "Edit" : "Submit"}
+            {currentAppointment ? "Edit" : "Submit"}
           </button>
         </Form>
 
-        <Outlet context={{ data: users, tableData }} />
+        <Outlet context={{ data: AppointmentsData, tableData }} />
       </main>
     </>
   );

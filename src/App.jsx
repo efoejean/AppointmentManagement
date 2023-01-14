@@ -3,9 +3,8 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
+import Appoint from "./components/Appointment";
 import Table from "./components/Table/Table";
-import User from "./components/User";
-import Appointments from "./routes/Appointments";
 import Root from "./routes/Root";
 import {
   createAppointment,
@@ -15,16 +14,19 @@ import {
 
 import "./index.css";
 
-const createEditUser = async ({ request }) => {
+const createEditAppointment = async ({ request }) => {
   const fd = await request.formData();
-  const createdEditedUser = Object.fromEntries(fd.entries());
+  const createdEditedAppointment = Object.fromEntries(fd.entries());
 
   try {
     const { id } =
       // 'id' may or may not be defined depending on whether we are creating or updating
-      createdEditedUser.id
-        ? await updateOneAppointment(createdEditedUser.id, createdEditedUser)
-        : await createAppointment(createdEditedUser);
+      createdEditedAppointment.id
+        ? await updateOneAppointment(
+            createdEditedAppointment.id,
+            createdEditedAppointment
+          )
+        : await createAppointment(createdEditedAppointment);
 
     // Must return a redirect action
     return redirect(`/${id}`);
@@ -34,36 +36,26 @@ const createEditUser = async ({ request }) => {
   }
 };
 
-const loadUsers = async () => {
-  const users = await getAppointments();
+const loadUsersAppointments = async () => {
+  const AppointmentsData = await getAppointments();
 
-  return { users };
+  return { AppointmentsData };
 };
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    loader: loadUsers,
-    action: createEditUser,
+    loader: loadUsersAppointments,
+    action: createEditAppointment,
     children: [
       {
         path: "",
         element: <Table />,
       },
       {
-        path: "/appointments",
-        element: <Appointments />,
-        loader: loadUsers,
-        action: createEditUser,
-      },
-      {
-        path: "/appointment/:id",
-        element: <User />,
-      },
-      {
         path: ":id",
-        element: <User />,
+        element: <Appoint />,
       },
     ],
   },

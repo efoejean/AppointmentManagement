@@ -1,46 +1,42 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { createAppointment } from "../services/axios";
+import { Form, useLoaderData, useParams, useSubmit } from "react-router-dom";
 
 export default function CreateForm({ setIsOpen }) {
-  const [formData, setFormData] = useState({
-    clientName: "",
-    clientPhoneNumber: "",
-    appointment_date: "",
-    deposit: "",
-    price: "",
-    stylistName: "",
-    service: "",
-  });
+  // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
+  const { AppointmentsData } = useLoaderData();
 
-  const [submitted, setSubmitted] = useState(false);
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((PrevState) => ({
-      ...PrevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    createAppointment(formData).then((response) => {
-      // todo: add a toast message
+  console.log(AppointmentsData);
+  // If we have this, we will populate the form with the data of the current user
+  const { id } = useParams();
+  const currentAppointment = AppointmentsData.find(
+    (appointment) => appointment.id === id
+  );
 
-      setIsOpen(false);
-    });
-  };
+  const submit = useSubmit();
   return (
     <div className="">
-      <form className="form" onSubmit={handleSubmit}>
+      <Form
+        className="form"
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          const form = e.target;
+          const fd = new FormData(form);
+          if (currentAppointment) fd.set("id", currentAppointment.id);
+
+          // Clear the form before submitting
+          form.reset();
+          submit(fd, { method: "post" });
+          setIsOpen(false);
+        }}
+      >
         <div className="container">
           <input
             type="text"
             name="clientName"
             placeholder="Name"
             className="form--input"
-            value={formData.clientName}
-            onChange={handleChange}
+            value={currentAppointment?.clientName}
             required
           />
           <input
@@ -48,8 +44,7 @@ export default function CreateForm({ setIsOpen }) {
             name="clientPhoneNumber"
             placeholder="Phone Number"
             className="form--input "
-            value={formData.clientPhoneNumber}
-            onChange={handleChange}
+            defaultValue={currentAppointment?.clientPhoneNumber}
             required
           />
         </div>
@@ -62,8 +57,7 @@ export default function CreateForm({ setIsOpen }) {
             type="datetime-local"
             name="appointment_date"
             className="form--input"
-            value={formData.appointment_date}
-            onChange={handleChange}
+            defaultValue={currentAppointment?.appointment_date}
             required
           />
         </div>
@@ -77,10 +71,9 @@ export default function CreateForm({ setIsOpen }) {
                 id="yes"
                 type="radio"
                 name="deposit"
-                value="yes"
+                defaultValue="yes"
                 className="ml-1"
-                checked={formData.deposit === "yes"}
-                onChange={handleChange}
+                checked={currentAppointment?.deposit === "yes"}
               />
               <label className="ml-4" htmlFor="no">
                 No
@@ -90,9 +83,8 @@ export default function CreateForm({ setIsOpen }) {
                 id="no"
                 type="radio"
                 name="deposit"
-                value="no"
-                checked={formData.deposit === "no"}
-                onChange={handleChange}
+                defaultValue="no"
+                checked={currentAppointment?.deposit === "no"}
               />
             </fieldset>
           </div>
@@ -102,8 +94,7 @@ export default function CreateForm({ setIsOpen }) {
             name="price"
             placeholder="Service Fee"
             className="form--input"
-            value={formData.price}
-            onChange={handleChange}
+            defaultValue={currentAppointment?.price}
             required
           />
         </div>
@@ -114,8 +105,7 @@ export default function CreateForm({ setIsOpen }) {
               id="stylistName"
               name="stylistName"
               className="form--input"
-              value={formData.stylistName}
-              onChange={handleChange}
+              defaultValue={currentAppointment?.stylistName}
               required
             >
               <option value="">Select a Stylist </option>
@@ -130,8 +120,7 @@ export default function CreateForm({ setIsOpen }) {
               id="service"
               name="service"
               className="form--input"
-              value={formData.service}
-              onChange={handleChange}
+              value={currentAppointment?.service}
               required
             >
               <option value="">Select a Service</option>
@@ -155,7 +144,7 @@ export default function CreateForm({ setIsOpen }) {
             Create
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
