@@ -36,7 +36,7 @@ export default function CreateForm({ setIsOpen }) {
             name="clientName"
             placeholder="Name"
             className="form--input"
-            value={currentAppointment?.clientName}
+            defaultValue={currentAppointment?.clientName}
             required
           />
           <input
@@ -64,29 +64,17 @@ export default function CreateForm({ setIsOpen }) {
 
         <div className="container">
           <div>
-            <fieldset>
-              <legend className="mb-1">Deposit</legend>
-              <label htmlFor="yes">Yes</label>
-              <input
-                id="yes"
-                type="radio"
-                name="deposit"
-                defaultValue="yes"
-                className="ml-1"
-                checked={currentAppointment?.deposit === "yes"}
-              />
-              <label className="ml-4" htmlFor="no">
-                No
-              </label>
-              <input
-                className="ml-1"
-                id="no"
-                type="radio"
-                name="deposit"
-                defaultValue="no"
-                checked={currentAppointment?.deposit === "no"}
-              />
-            </fieldset>
+            <select
+              id="deposit"
+              name="deposit"
+              className="form--input"
+              defaultValue={currentAppointment?.deposit}
+              required
+            >
+              <option value="">Select Yes or No</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </div>
 
           <input
@@ -120,7 +108,7 @@ export default function CreateForm({ setIsOpen }) {
               id="service"
               name="service"
               className="form--input"
-              value={currentAppointment?.service}
+              defaultValue={currentAppointment?.service}
               required
             >
               <option value="">Select a Service</option>
@@ -141,7 +129,7 @@ export default function CreateForm({ setIsOpen }) {
             Cancel
           </button>
           <button className="primaryBtn mr-12" type="submit">
-            Create
+            {currentAppointment ? "Edit" : "Create"}
           </button>
         </div>
       </Form>
