@@ -5,9 +5,12 @@ import {
 } from "react-router-dom";
 import Appoint from "./components/Appointment";
 import Table from "./components/Table/Table";
+import Cancel from "./routes/Cancel";
+import Delete from "./routes/Delete";
 import Root from "./routes/Root";
 import {
   createAppointment,
+  deleteOneAppointment,
   getAppointments,
   updateOneAppointment,
 } from "./services/axios";
@@ -56,6 +59,32 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <Appoint />,
+      },
+      {
+        path: "Cancel/:id",
+        element: <Cancel />,
+        action: async ({ params }) => {
+          const { id } = params;
+          try {
+            await updateOneAppointment(id, { status: "Cancelled" });
+            return redirect("/");
+          } catch (error) {
+            console.error(error);
+          }
+        },
+      },
+      {
+        path: "Delete/:id",
+        element: <Delete />,
+        action: async ({ params }) => {
+          const { id } = params;
+          try {
+            await deleteOneAppointment(id);
+            return redirect("/");
+          } catch (error) {
+            console.error(error);
+          }
+        },
       },
     ],
   },
