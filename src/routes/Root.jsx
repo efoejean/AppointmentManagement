@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { Button, Toolbar } from "@mui/material";
 import {
   Form,
   Link,
@@ -9,6 +10,7 @@ import {
 } from "react-router-dom";
 import { TextInput } from "../components/Form";
 import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
@@ -102,6 +104,13 @@ export default function Root() {
             {currentAppointment ? "Edit" : "Submit"}
           </button>
         </Form>
+
+        <Toolbar>
+          <SearchBar />{" "}
+          <Button style={{ marginLeft: "auto" }} variant="contained">
+            + Add New
+          </Button>
+        </Toolbar>
 
         <Outlet context={{ data: AppointmentsData, tableData }} />
       </main>
