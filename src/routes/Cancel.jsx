@@ -12,22 +12,14 @@ export default function Cancel() {
     <Dialog
       title="Cancel Appointment"
       onConfirm={() => {
-        submit({
-          method: "POST",
-          body: JSON.stringify({
-            id: appointmentToCancel.id,
-            appointment_date: appointmentToCancel.appointment_date,
-            clientName: appointmentToCancel.clientName,
-            clientPhoneNumber: appointmentToCancel.clientPhoneNumber,
-            deposit: appointmentToCancel.deposit,
-            service: appointmentToCancel.service,
-            price: appointmentToCancel.price,
-            status: "Cancelled",
-          }),
-        });
+        submit(null, { method: "POST" });
       }}
     >
       <p>Are you sure you want to cancel this appointment?</p>
+      <strong id="dialogDesc">
+        <p>Are you sure you want to delete this user?</p>
+        <p className="italic">{appointmentToCancel.clientName}</p>
+      </strong>
       <p>
         <Link to="/appointments">Go back</Link>
       </p>
