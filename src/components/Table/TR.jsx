@@ -15,17 +15,18 @@ export default function TR({ dataRow, id }) {
         </TableCell>
       ))}
       <TableCell>
-        <Button>
-          <EditOutlined
-            fontSize="small"
-            onClick={(event) => handleEdit(event, appointment)}
-          />
-        </Button>
+        <Link to={`/cancel/${id}`}>
+          <Button>
+            <EditOutlined fontSize="small" />
+          </Button>
+        </Link>
       </TableCell>
       <TableCell>
-        <Button>
-          <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
-        </Button>
+        <Link to={`/delete/${id}`}>
+          <Button>
+            <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
+          </Button>
+        </Link>
       </TableCell>
     </TableRow>
   );
@@ -34,4 +35,5 @@ export default function TR({ dataRow, id }) {
 TR.propTypes = {
   dataRow: PropTypes.objectOf(PropTypes.string).isRequired,
   id: PropTypes.string.isRequired,
+  event: PropTypes.objectOf(PropTypes.string).isRequired,
 };

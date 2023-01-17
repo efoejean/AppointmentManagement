@@ -11,10 +11,10 @@ export default function Delete() {
   return (
     <Dialog>
       <h2 className="text-2xl font-bold" id="dialogTitle">
-        Delete User
+        Delete Appointment
       </h2>
       <strong id="dialogDesc">
-        <p>Are you sure you want to delete this user?</p>
+        <p>Are you sure you want to delete this Appointment?</p>
         <p className="italic">{appointmentToDelete.clientName}</p>
       </strong>
       <div className="flex justify-end">

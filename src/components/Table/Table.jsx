@@ -25,7 +25,6 @@ export default function Table() {
     { id: "actionEdit", label: "Edit" },
     { id: "actionsCancel", label: "Cancel" },
   ];
-  const headers = Object.keys(tableData[0]);
 
   return (
     <MuiTable className="TableAppoint">
@@ -34,7 +33,7 @@ export default function Table() {
       <TableFooter>
         <TableRow>
           <TableCell
-            colSpan={headers.length}
+            colSpan={headCells.length}
             className="text-center [&>*]:mx-4"
           >
             <label htmlFor="page" className="sr-only">

@@ -46,11 +46,3 @@ export default function Appoint() {
     </figure>
   );
 }
-// id,
-//       appointment_date,
-//       clientName,
-//       clientPhoneNumber,
-//       deposit,
-//       service,
-//       price,
-//       status,

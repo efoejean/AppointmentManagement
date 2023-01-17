@@ -64,26 +64,17 @@ const router = createBrowserRouter([
         path: "Cancel/:id",
         element: <Cancel />,
         action: async ({ params }) => {
-          const { id } = params;
-          try {
-            await updateOneAppointment(id, { status: "Cancelled" });
-            return redirect("/");
-          } catch (error) {
-            console.error(error);
-          }
+          await updateOneAppointment(params.id, { status: "cancelled" });
+          return redirect("/");
         },
       },
       {
         path: "Delete/:id",
         element: <Delete />,
         action: async ({ params }) => {
-          const { id } = params;
-          try {
-            await deleteOneAppointment(id);
-            return redirect("/");
-          } catch (error) {
-            console.error(error);
-          }
+          console.log(params.id);
+          await deleteOneAppointment(params.id);
+          return redirect("/");
         },
       },
     ],
