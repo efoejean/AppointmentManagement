@@ -37,12 +37,12 @@ export default function Root() {
       status,
     }) => ({
       id,
-      appointment_date,
+      appointment_date: new Date(appointment_date).toLocaleDateString(),
       clientName,
       clientPhoneNumber,
       deposit,
       service,
-      price,
+      price: `$${price}`,
       status,
     })
   );
