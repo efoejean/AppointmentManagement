@@ -6,8 +6,7 @@ import startOfWeek from "date-fns/startOfWeek";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLoaderData } from "react-router-dom";
-
+import { useOutletContext } from "react-router-dom";
 const locales = {
   "en-US": enUS,
 };
@@ -21,7 +20,8 @@ const localizer = dateFnsLocalizer({
 });
 
 export default function Scheduler() {
-  const { appointmentsData } = useLoaderData();
+  const { data } = useOutletContext();
+
   const eventStyleGet = (event) => {
     const newStyle = {
       backgroundColor: "green",
@@ -49,7 +49,7 @@ export default function Scheduler() {
     <div>
       <Calendar
         localizer={localizer}
-        events={appointmentsData}
+        events={data}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500, margin: 20 }}

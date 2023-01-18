@@ -35,5 +35,4 @@ export default function TR({ dataRow, id }) {
 TR.propTypes = {
   dataRow: PropTypes.objectOf(PropTypes.string).isRequired,
   id: PropTypes.string.isRequired,
-  event: PropTypes.objectOf(PropTypes.string).isRequired,
 };

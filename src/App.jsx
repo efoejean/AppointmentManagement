@@ -8,6 +8,7 @@ import Table from "./components/Table/Table";
 import Cancel from "./routes/Cancel";
 import Delete from "./routes/Delete";
 import Root from "./routes/Root";
+import Scheduler from "./routes/Scheduler";
 import {
   createAppointment,
   deleteOneAppointment,
@@ -40,7 +41,17 @@ const createEditAppointment = async ({ request }) => {
 };
 
 const loadUsersAppointments = async () => {
-  const AppointmentsData = await getAppointments();
+  const Appointments = await getAppointments();
+
+  const AppointmentsData = Appointments.map((appointment) => ({
+    ...appointment,
+
+    start: new Date(appointment.appointment_date),
+    end: new Date(appointment.appointment_date),
+
+    stylist: appointment.stylistName,
+    title: appointment.clientName + " / " + appointment.service,
+  }));
 
   return { AppointmentsData };
 };
@@ -59,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <Appoint />,
+      },
+      {
+        path: "/agenda",
+        element: <Scheduler />,
       },
       {
         path: "Cancel/:id",
