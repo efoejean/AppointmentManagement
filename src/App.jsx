@@ -26,10 +26,15 @@ const createEditAppointment = async ({ request }) => {
     const { id } =
       // 'id' may or may not be defined depending on whether we are creating or updating
       createdEditedAppointment.id
-        ? await updateOneAppointment(
-            createdEditedAppointment.id,
-            createdEditedAppointment
-          )
+        ? await updateOneAppointment(createdEditedAppointment.id, {
+            appointment_date: createdEditedAppointment.appointment_date,
+            clientName: createdEditedAppointment.clientName,
+            clientPhoneNumber: createdEditedAppointment.clientPhoneNumber,
+            stylistName: createdEditedAppointment.stylistName,
+            service: createdEditedAppointment.service,
+            deposit: createdEditedAppointment.deposit,
+            price: createdEditedAppointment.price,
+          })
         : await createAppointment(createdEditedAppointment);
 
     // Must return a redirect action
