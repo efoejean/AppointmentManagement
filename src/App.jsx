@@ -38,7 +38,7 @@ const createEditAppointment = async ({ request }) => {
         : await createAppointment(createdEditedAppointment);
 
     // Must return a redirect action
-    return redirect(`/${id}`);
+    return redirect(`/appointment/${id}`);
   } catch (error) {
     // TODO: redirect to error page
     console.error(error);
@@ -73,8 +73,11 @@ const router = createBrowserRouter([
         element: <Table />,
       },
       {
-        path: ":id",
+        path: "/appointment/:id",
+
         element: <Appoint />,
+        loader: loadUsersAppointments,
+        action: createEditAppointment,
       },
       {
         path: "/agenda",
