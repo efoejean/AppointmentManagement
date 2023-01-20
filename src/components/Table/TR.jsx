@@ -8,14 +8,14 @@ export default function TR({ dataRow, id }) {
     <TableRow>
       {Object.values(dataRow).map((item, index) => (
         <TableCell key={index} className="truncate px-4 first:text-blue-500">
-          <Link to={id}>
+          <Link to={`/appointment/${id}`}>
             {" "}
             {item.length > 24 ? item.substring(0, 24) + "..." : item}
           </Link>
         </TableCell>
       ))}
       <TableCell>
-        <Link to={`/cancel/${id}`}>
+        <Link to={`/appointment/${id}`}>
           <Button>
             <EditOutlined fontSize="small" />
           </Button>
