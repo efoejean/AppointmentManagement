@@ -1,22 +1,17 @@
 /* eslint-disable camelcase */
-import { Button, Toolbar } from "@mui/material";
 import {
-  Form,
   Link,
   Outlet,
   useLoaderData,
   useParams,
   useSubmit,
 } from "react-router-dom";
-import { TextInput } from "../components/Form";
 import Navbar from "../components/Navbar";
-import SearchBar from "../components/SearchBar";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { AppointmentsData } = useLoaderData();
 
-  console.log(AppointmentsData);
   // If we have this, we will populate the form with the data of the current user
   const { id } = useParams();
   const currentAppointment = AppointmentsData.find(
@@ -54,7 +49,7 @@ export default function Root() {
         <Link to="/"></Link>
       </h1>
       <main className="mx-8 flex flex-col gap-y-4">
-        <Form
+        {/* <Form
           className="flex flex-col items-center border-y"
           onSubmit={(e) => {
             e.preventDefault();
@@ -110,7 +105,7 @@ export default function Root() {
           <Button style={{ marginLeft: "auto" }} variant="contained">
             + Add New
           </Button>
-        </Toolbar>
+        </Toolbar> */}
 
         <Outlet context={{ data: AppointmentsData, tableData }} />
       </main>

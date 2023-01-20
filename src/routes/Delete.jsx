@@ -1,6 +1,7 @@
 import { Link, useOutletContext, useParams, useSubmit } from "react-router-dom";
 import Dialog from "../components/Dialog";
 
+
 export default function Delete() {
   const { id } = useParams();
   const { data } = useOutletContext();

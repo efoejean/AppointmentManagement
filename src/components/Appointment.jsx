@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useParams } from "react-router-dom";
 import useAppointment from "../hooks/useAppointment";
+import { updateOneAppointment } from "../services/axios";
 import { getNavIds } from "../utils/pagination";
 import AppointmentModal from "./AppointmentModal";
 
@@ -8,6 +9,14 @@ export default function Appoint() {
   const [isOpen, setIsOpen] = useState(false);
   const { appointment, ids } = useAppointment();
   const { prevId, nextId } = getNavIds(ids, appointment.id);
+
+  const { id } = useParams();
+
+  function cancelAppointment() {
+    updateOneAppointment(id, { status: "cancelled" });
+    console.log(id);
+    return redirect(`/`);
+  }
 
   return (
     <>
@@ -29,7 +38,11 @@ export default function Appoint() {
             {isOpen && <AppointmentModal setIsOpen={setIsOpen} />}
           </div>
           <div className="">
-            <button className="cancelBtn mr-12" type="submit">
+            <button
+              className="cancelBtn mr-12"
+              type="submit"
+              onClick={() => cancelAppointment()}
+            >
               Cancel
             </button>
           </div>

@@ -1,4 +1,10 @@
-import { Link, useOutletContext, useParams, useSubmit } from "react-router-dom";
+import {
+  Link,
+  redirect,
+  useOutletContext,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 import Dialog from "../components/Dialog";
 
 export default function Cancel() {
@@ -7,6 +13,7 @@ export default function Cancel() {
   const submit = useSubmit();
 
   const appointmentToCancel = data.find((appointment) => appointment.id === id);
+
 
   return (
     <Dialog>
@@ -20,9 +27,7 @@ export default function Cancel() {
           className="rounded-lg bg-red-500 px-4 py-2 text-white"
           type="button"
           onClick={() => {
-            submit(null, {
-              method: "POST",
-            });
+            submit(null, { method: "POST" });
           }}
         >
           Delete
