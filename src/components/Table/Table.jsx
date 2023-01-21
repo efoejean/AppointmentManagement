@@ -13,9 +13,8 @@ export default function Table() {
   const { currentData, maxPage, dispatchPagination } = usePagination(tableData);
 
   const headCells = [
-    { id: "id", label: "ID" },
+    // TODO: 'id' header has been resolved. Need to reconcile the data to not show the 'id' data.
     { id: "start", label: "Date" },
-
     { id: "title", label: "Name" },
     { id: "clientPhone", label: "Phone Number" },
     { id: "deposit", label: "Deposit" },
@@ -29,7 +28,10 @@ export default function Table() {
   return (
     <MuiTable className="TableAppoint">
       <TH headCells={headCells} />
+
       <TBody data={currentData} />
+
+      {/* TODO: Consider naming consistency. Can we do 'T' like above instead of 'T' and 'Table'? */}
       <TableFooter>
         <TableRow>
           <TableCell

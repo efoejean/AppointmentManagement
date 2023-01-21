@@ -13,7 +13,6 @@ export default function Appointments() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { users } = useLoaderData();
 
-  console.log(users);
   // If we have this, we will populate the form with the data of the current user
   const { id } = useParams();
   const currentUser = users.find((user) => user.id === id);

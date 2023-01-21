@@ -1,6 +1,7 @@
 import { TableBody } from "@mui/material";
 import PropTypes from "prop-types";
 import TR from "./TR";
+
 export default function TBody({ data }) {
   return (
     <TableBody>
