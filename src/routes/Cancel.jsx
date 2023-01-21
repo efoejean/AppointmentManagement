@@ -1,10 +1,4 @@
-import {
-  Link,
-  redirect,
-  useOutletContext,
-  useParams,
-  useSubmit,
-} from "react-router-dom";
+import { Link, useOutletContext, useParams, useSubmit } from "react-router-dom";
 import Dialog from "../components/Dialog";
 
 export default function Cancel() {
@@ -13,31 +7,32 @@ export default function Cancel() {
   const submit = useSubmit();
 
   const appointmentToCancel = data.find((appointment) => appointment.id === id);
-
-
+  const form = {
+    id: appointmentToCancel.id,
+    status: "cancelled",
+  };
   return (
     <Dialog>
-      <p>Are you sure you want to cancel this appointment?</p>
       <strong id="dialogDesc">
-        <p>Are you sure you want to delete this user?</p>
+        <p>Are you sure you want to cancel this appointment?</p>
         <p className="italic">{appointmentToCancel.clientName}</p>
       </strong>
       <div className="flex justify-end">
         <button
           className="rounded-lg bg-red-500 px-4 py-2 text-white"
-          type="button"
+          type="submit"
           onClick={() => {
-            submit(null, { method: "POST" });
+            submit(form, { method: "POST" });
           }}
         >
-          Delete
+          Cancel
         </button>
         <Link
-          to="/"
+          to={`/appointment/${id}`}
           className="ml-2 rounded-lg bg-gray-500 px-4 py-2 text-white"
           onClick={() => {}}
         >
-          Cancel
+          Back
         </Link>
       </div>
     </Dialog>

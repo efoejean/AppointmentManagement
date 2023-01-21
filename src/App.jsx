@@ -87,7 +87,9 @@ const router = createBrowserRouter([
         path: "Cancel/:id",
         element: <Cancel />,
         action: async ({ params }) => {
-          await updateOneAppointment(params.id, { status: "cancelled" });
+          await updateOneAppointment(params.id, {
+            status: "cancelled",
+          });
           return redirect("/");
         },
       },
