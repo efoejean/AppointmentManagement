@@ -40,7 +40,7 @@ export default function Root() {
   return (
     <>
       <Navbar />
-      <main className="mx-8 mt-4 mb-8 flex flex-col gap-y-4 text-center text-3xl font-bold underline">
+      <main className="text-3ml mx-8 mt-4 mb-8 flex flex-col gap-y-4 text-center font-bold">
         {/* TODO: Is 'data' actually used or do we just need tableDAta? */}
         <Outlet context={{ data: AppointmentsData, tableData }} />
       </main>
