@@ -1,18 +1,9 @@
-import { Outlet, useLoaderData, useParams, useSubmit } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { AppointmentsData } = useLoaderData();
-
-  // If we have this, we will populate the form with the data of the current user
-  const { id } = useParams();
-
-  const currentAppointment = AppointmentsData.find(
-    (appointment) => appointment.id === id
-  );
-
-  const submit = useSubmit();
 
   // TODO: Refactor this to avoid as much clutter. Consider spread operator.
   const tableData = AppointmentsData.map(
