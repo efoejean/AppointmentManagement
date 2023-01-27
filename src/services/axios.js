@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://appointment-app-server-8mro1jbpk-efoejean.vercel.app",
 });
 
 export const getClients = async () => {
