@@ -31,7 +31,6 @@ export default function Table() {
 
       <TBody data={currentData} />
 
-      {/* TODO: Consider naming consistency. Can we do 'T' like above instead of 'T' and 'Table'? */}
       <TFooter>
         <TRow>
           <TCell colSpan={headCells.length} className="text-center [&>*]:mx-4">
