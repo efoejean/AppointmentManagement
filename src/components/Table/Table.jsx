@@ -1,9 +1,9 @@
 import usePagination from "@/hooks/usePagination";
 import {
   Table as MuiTable,
-  TableCell,
-  TableFooter,
-  TableRow,
+  TableCell as TCell,
+  TableFooter as TFooter,
+  TableRow as TRow,
 } from "@mui/material";
 import { Link, useOutletContext } from "react-router-dom";
 import TBody from "./TBody";
@@ -32,12 +32,9 @@ export default function Table() {
       <TBody data={currentData} />
 
       {/* TODO: Consider naming consistency. Can we do 'T' like above instead of 'T' and 'Table'? */}
-      <TableFooter>
-        <TableRow>
-          <TableCell
-            colSpan={headCells.length}
-            className="text-center [&>*]:mx-4"
-          >
+      <TFooter>
+        <TRow>
+          <TCell colSpan={headCells.length} className="text-center [&>*]:mx-4">
             <label htmlFor="page" className="sr-only">
               Page
             </label>
@@ -60,9 +57,9 @@ export default function Table() {
               }}
             />
             &nbsp;/&nbsp;{maxPage}
-          </TableCell>
-        </TableRow>
-      </TableFooter>
+          </TCell>
+        </TRow>
+      </TFooter>
     </MuiTable>
   );
 }
