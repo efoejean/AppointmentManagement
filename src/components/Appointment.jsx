@@ -75,10 +75,10 @@ export default function Appoint() {
         </div>
 
         <footer className="self-center text-xl">
-          <Link to={"/" + prevId} className="white mr-4">
+          <Link to={`/appointment/${prevId}`} className="white mr-4">
             ⬅️ Prev
           </Link>
-          <Link to={"/" + nextId} className="white">
+          <Link to={`/appointment/${nextId}`} className="white">
             Next ➡️
           </Link>
         </footer>
