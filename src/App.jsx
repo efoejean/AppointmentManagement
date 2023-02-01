@@ -3,6 +3,7 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
+import Appoint from "./components/Appointment";
 import ErrorPage from "./components/error-page";
 import "./index.css";
 import Appointments from "./routes/Appointments";
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
       {
         path: "/appointments",
         element: <Appointments />,
+        loader: rootLoader,
+      },
+      {
+        path: "/appointment/:id",
+        element: <Appoint />,
         loader: rootLoader,
       },
     ],
