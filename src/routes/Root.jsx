@@ -1,20 +1,22 @@
+import { Outlet, useLoaderData } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { getAppointments } from "../services/axios";
 
-// export async function loader() {
-//   const Appointments = await getAppointments();
+export async function loader() {
+  const Appointments = await getAppointments();
 
-//   const AppointmentsData = Appointments.map((appointment) => ({
-//     ...appointment,
+  const AppointmentsData = Appointments.map((appointment) => ({
+    ...appointment,
 
-//     start: new Date(appointment.appointment_date),
-//     end: new Date(appointment.appointment_date),
+    start: new Date(appointment.appointment_date),
+    end: new Date(appointment.appointment_date),
 
-//     stylist: appointment.stylistName,
-//     title: appointment.clientName + " / " + appointment.service,
-//   }));
+    stylist: appointment.stylistName,
+    title: appointment.clientName + " / " + appointment.service,
+  }));
 
-//   return { AppointmentsData };
-// }
+  return { AppointmentsData };
+}
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   // const { AppointmentsData } = useLoaderData();
@@ -45,6 +47,7 @@ export default function Root() {
   return (
     <>
       <Navbar />
+      <Outlet />
     </>
   );
 }
