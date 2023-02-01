@@ -3,9 +3,10 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-import Root from "./routes/Root";
-
+import ErrorPage from "./components/error-page";
 import "./index.css";
+import Appointments from "./routes/Appointments";
+import Root, { loader as rootLoader } from "./routes/Root";
 
 // const createEditAppointment = async ({ request }) => {
 //   const fd = await request.formData();
@@ -54,7 +55,17 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    children: [
+      {
+        path: "/appointments",
+        element: <Appointments />,
+        loader: rootLoader,
+      },
+    ],
   },
+
   {
     path: "*",
     element: redirect("/"),
