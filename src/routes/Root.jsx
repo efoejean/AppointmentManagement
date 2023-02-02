@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { getAppointments } from "../services/axios";
 
@@ -17,6 +17,7 @@ export async function loader() {
 
   return { AppointmentsData };
 }
+
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   // const { AppointmentsData } = useLoaderData();

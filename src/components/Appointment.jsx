@@ -15,7 +15,7 @@ export default function Appoint() {
     <>
       <div>
         <div className="mb-10 flex justify-center">
-          <Link to="/">
+          <Link to="/appointments">
             <button color="blue">Back to Appointments</button>
           </Link>
         </div>
