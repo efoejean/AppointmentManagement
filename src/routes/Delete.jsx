@@ -1,7 +1,6 @@
 import { Link, useOutletContext, useParams, useSubmit } from "react-router-dom";
 import Dialog from "../components/Dialog";
 
-
 export default function Delete() {
   const { id } = useParams();
   const { data } = useOutletContext();
@@ -23,7 +22,7 @@ export default function Delete() {
           className="rounded-lg bg-red-500 px-4 py-2 text-white"
           type="button"
           onClick={() => {
-            submit(null, { method: "POST" });
+            submit(null, { method: "OPTION" });
           }}
         >
           Delete

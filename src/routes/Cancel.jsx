@@ -16,8 +16,9 @@ export default function Cancel() {
 
   function cancelAppointment(id) {
     updateOneAppointment(id, {
-      status: "cancelled",
+      status: "Canceled",
     });
+
     return navigate("/");
   }
   console.log(appointmentToCancel);

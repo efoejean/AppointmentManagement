@@ -44,7 +44,6 @@ const createEditAppointment = async ({ request }) => {
     console.error(error);
   }
 };
-
 const loadUsersAppointments = async () => {
   const Appointments = await getAppointments();
 
@@ -86,6 +85,7 @@ const router = createBrowserRouter([
       {
         path: "Cancel/:id",
         element: <Cancel />,
+        action: redirect("/"),
       },
       {
         path: "Delete/:id",

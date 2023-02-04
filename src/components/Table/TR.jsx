@@ -28,7 +28,7 @@ export default function TR({ dataRow, id }) {
         </Link>
       </TableCell>
       <TableCell>
-        <Link to={`/cancel/${id}`}>
+        <Link to={`/Delete/${id}`}>
           <Button>
             <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
           </Button>
