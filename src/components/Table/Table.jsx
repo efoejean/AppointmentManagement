@@ -23,6 +23,7 @@ export default function Table() {
     { id: "status", label: "Status" },
     { id: "actionEdit", label: "Edit" },
     { id: "actionsCancel", label: "Cancel" },
+    { id: "actionsComplete", label: "Complete" },
   ];
 
   return (

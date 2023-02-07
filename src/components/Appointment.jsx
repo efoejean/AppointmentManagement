@@ -38,9 +38,11 @@ export default function Appoint() {
             </Link>
           </div>
           <div className="">
-            <button className="primaryBtn mr-12" type="submit">
-              Complete
-            </button>
+            <Link to={`/complete/${id}`}>
+              <button className="primaryBtn mr-12" type="submit">
+                Complete
+              </button>
+            </Link>
           </div>
         </div>
       </div>

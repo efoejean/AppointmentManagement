@@ -6,12 +6,11 @@ import {
 import Appoint from "./components/Appointment";
 import Table from "./components/Table/Table";
 import Cancel from "./routes/Cancel";
-import Delete from "./routes/Delete";
+import Complete from "./routes/Complete";
 import Root from "./routes/Root";
 import Scheduler from "./routes/Scheduler";
 import {
   createAppointment,
-  deleteOneAppointment,
   getAppointments,
   updateOneAppointment,
 } from "./services/axios";
@@ -87,7 +86,6 @@ const router = createBrowserRouter([
         element: <Cancel />,
         loader: loadUsersAppointments,
         action: async ({ params }) => {
-          console.log(params.id);
           await updateOneAppointment(params.id, {
             status: "Canceled",
           });
@@ -95,11 +93,13 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "Delete/:id",
-        element: <Delete />,
+        path: "Complete/:id",
+        element: <Complete />,
+        loader: loadUsersAppointments,
         action: async ({ params }) => {
-          console.log(params.id);
-          await deleteOneAppointment(params.id);
+          await updateOneAppointment(params.id, {
+            status: "Completed",
+          });
           return redirect("/");
         },
       },

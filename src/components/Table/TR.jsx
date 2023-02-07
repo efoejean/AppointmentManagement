@@ -1,4 +1,5 @@
 import { EditOutlined } from "@mui/icons-material";
+import CheckIcon from "@mui/icons-material/Check";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Button, TableCell, TableRow } from "@mui/material";
 import PropTypes from "prop-types";
@@ -28,9 +29,16 @@ export default function TR({ dataRow, id }) {
         </Link>
       </TableCell>
       <TableCell>
-        <Link to={`/Delete/${id}`}>
+        <Link to={`/Cancel/${id}`}>
           <Button>
             <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
+          </Button>
+        </Link>
+      </TableCell>
+      <TableCell>
+        <Link to={`/Complete/${id}`}>
+          <Button>
+            <CheckIcon fontSize="small" style={{ color: "green" }} />
           </Button>
         </Link>
       </TableCell>
