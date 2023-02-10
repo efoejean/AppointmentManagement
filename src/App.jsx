@@ -9,6 +9,7 @@ import Cancel from "./routes/Cancel";
 import Complete from "./routes/Complete";
 import Root from "./routes/Root";
 import Scheduler from "./routes/Scheduler";
+import ErrorPage from "./components/error-page";
 import {
   createAppointment,
   getAppointments,
@@ -37,6 +38,7 @@ const createEditAppointment = async ({ request }) => {
         : await createAppointment(createdEditedAppointment);
 
     // Must return a redirect action
+
     return redirect(`/appointment/${id}`);
   } catch (error) {
     // TODO: redirect to error page
@@ -65,6 +67,7 @@ const router = createBrowserRouter([
     element: <Root />,
     loader: loadUsersAppointments,
     action: createEditAppointment,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
