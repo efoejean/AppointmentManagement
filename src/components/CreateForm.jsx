@@ -1,5 +1,12 @@
 import PropTypes from "prop-types";
-import { Form, useLoaderData, useParams, useSubmit } from "react-router-dom";
+import {
+  Form,
+  redirect,
+  useLoaderData,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
+import { createAppointment, updateOneAppointment } from "../services/axios";
 
 export default function CreateForm({ setIsOpen }) {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
@@ -13,6 +20,7 @@ export default function CreateForm({ setIsOpen }) {
   );
 
   const submit = useSubmit();
+
   return (
     <div className="">
       <Form
@@ -136,6 +144,34 @@ export default function CreateForm({ setIsOpen }) {
     </div>
   );
 }
+
+export const action = async ({ request }) => {
+  const fd = await request.formData();
+  const createdEditedAppointment = Object.fromEntries(fd.entries());
+
+  try {
+    const { id } =
+      // 'id' may or may not be defined depending on whether we are creating or updating
+      createdEditedAppointment.id
+        ? await updateOneAppointment(createdEditedAppointment.id, {
+            appointment_date: createdEditedAppointment.appointment_date,
+            clientName: createdEditedAppointment.clientName,
+            clientPhoneNumber: createdEditedAppointment.clientPhoneNumber,
+            stylistName: createdEditedAppointment.stylistName,
+            service: createdEditedAppointment.service,
+            deposit: createdEditedAppointment.deposit,
+            price: createdEditedAppointment.price,
+          })
+        : await createAppointment(createdEditedAppointment);
+
+    // Must return a redirect action
+
+    return redirect(`/appointment/${id}`);
+  } catch (error) {
+    // TODO: redirect to error page
+    console.error(error);
+  }
+};
 
 CreateForm.propTypes = {
   setIsOpen: PropTypes.func.isRequired,

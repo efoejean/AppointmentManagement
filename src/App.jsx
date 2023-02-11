@@ -4,38 +4,48 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Appoint from "./components/Appointment";
+import { action as createEditAppointment } from "./components/CreateForm";
 import ErrorPage from "./components/error-page";
 import "./index.css";
 import Appointments from "./routes/Appointments";
 import Root, { loader as rootLoader } from "./routes/Root";
-import { createAppointment, updateOneAppointment } from "./services/axios";
 
-const createEditAppointment = async ({ request }) => {
-  const fd = await request.formData();
-  const createdEditedAppointment = Object.fromEntries(fd.entries());
+// const createEditAppointment = async ({ request }) => {
+//   const [notify, setNotify] = useState({
+//     isOpen: false,
+//     message: "",
+//     type: "",
+//   });
+//   const fd = await request.formData();
+//   const createdEditedAppointment = Object.fromEntries(fd.entries());
 
-  try {
-    const { id } =
-      // 'id' may or may not be defined depending on whether we are creating or updating
-      createdEditedAppointment.id
-        ? await updateOneAppointment(createdEditedAppointment.id, {
-            appointment_date: createdEditedAppointment.appointment_date,
-            clientName: createdEditedAppointment.clientName,
-            clientPhoneNumber: createdEditedAppointment.clientPhoneNumber,
-            stylistName: createdEditedAppointment.stylistName,
-            service: createdEditedAppointment.service,
-            deposit: createdEditedAppointment.deposit,
-            price: createdEditedAppointment.price,
-          })
-        : await createAppointment(createdEditedAppointment);
+//   try {
+//     const { id } =
+//       // 'id' may or may not be defined depending on whether we are creating or updating
+//       createdEditedAppointment.id
+//         ? await updateOneAppointment(createdEditedAppointment.id, {
+//             appointment_date: createdEditedAppointment.appointment_date,
+//             clientName: createdEditedAppointment.clientName,
+//             clientPhoneNumber: createdEditedAppointment.clientPhoneNumber,
+//             stylistName: createdEditedAppointment.stylistName,
+//             service: createdEditedAppointment.service,
+//             deposit: createdEditedAppointment.deposit,
+//             price: createdEditedAppointment.price,
+//           })
+//         : await createAppointment(createdEditedAppointment);
 
-    // Must return a redirect action
-    return redirect(`/appointment/${id}`);
-  } catch (error) {
-    // TODO: redirect to error page
-    console.error(error);
-  }
-};
+//     // Must return a redirect action
+//     setNotify({
+//       isOpen: true,
+//       message: "Appointment Created",
+//       type: "success",
+//     });
+//     return redirect(`/appointment/${id}`);
+//   } catch (error) {
+//     // TODO: redirect to error page
+//     console.error(error);
+//   }
+// };
 
 // const loadUsersAppointments = async () => {
 //   const Appointments = await getAppointments();
