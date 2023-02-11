@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import {
   Form,
   redirect,
@@ -146,6 +147,11 @@ export default function CreateForm({ setIsOpen }) {
 }
 
 export const action = async ({ request }) => {
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
   const fd = await request.formData();
   const createdEditedAppointment = Object.fromEntries(fd.entries());
 
@@ -165,7 +171,11 @@ export const action = async ({ request }) => {
         : await createAppointment(createdEditedAppointment);
 
     // Must return a redirect action
-
+    setNotify({
+      isOpen: true,
+      message: "Appointment Created",
+      type: "success",
+    });
     return redirect(`/appointment/${id}`);
   } catch (error) {
     // TODO: redirect to error page
