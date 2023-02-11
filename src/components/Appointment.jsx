@@ -47,32 +47,60 @@ export default function Appoint() {
         </div>
       </div>
 
-      <figure className="container mx-auto flex flex-col gap-y-4 rounded-md border bg-sky-700 px-8 py-8 text-zinc-50 shadow-xl">
-        <div>
-          <div className="flex items-center gap-x-4">
-            <figcaption>
-              <h2 className="text-2xl font-bold text-black">
-                {appointment.clientName}
-              </h2>
-              <small>{appointment.service}</small>
-              <blockquote className="italic">
+      <figure className="container mx-auto flex flex-row gap-y-4 rounded-md border bg-sky-700 px-8 py-8 text-zinc-50 shadow-xl">
+        <div className="flex flex-row justify-center gap-5">
+          <div className=" px-8 text-2xl">
+            <div className="... mr-10 flex gap-5">
+              <h2 className=" ">Client :</h2>
+              <p className="font-bold text-black">{appointment.clientName}</p>
+            </div>
+            <div className="... mr-10 flex justify-center gap-1">
+              <h2 className="mr-10"> Service: </h2>
+              <p className="font-bold text-black">{appointment.service}</p>
+            </div>
+            <div className="... mr-10 flex justify-center gap-3">
+              <h2 className=" mr-6"> Fees:</h2>
+              <p className="font-bold text-black">
+                {" "}
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
                 }).format(appointment.price)}
-              </blockquote>
-            </figcaption>
-          </div>
-          <div className="flex items-center gap-x-4">
-            <figcaption>
-              <h2 className="text-2xl font-bold text-black">
-                {new Date(appointment.appointment_date).toLocaleDateString()}
-              </h2>
-              <small>{appointment.clientPhoneNumber}</small>
-              <blockquote className="italic">
+              </p>
+            </div>
+            <div className="... mr-10 flex  justify-center gap-6">
+              <h2 className=" ">Status:</h2>
+              <blockquote className=" italic">
                 &quot;{appointment.status}&quot;
               </blockquote>
-            </figcaption>
+            </div>
+          </div>
+
+          <div className=" px-8 text-2xl">
+            <div className="... ml-10 flex  justify-center gap-5">
+              <h2 className=" mr-10"> Date:</h2>
+              <p className="font-bold text-black">
+                {new Date(appointment.appointment_date).toLocaleDateString()}
+              </p>
+            </div>
+            <div className="... ml-10 flex  justify-center gap-5">
+              <h2>Time:</h2>
+              <p className="ml-10 font-bold text-black">
+                {new Date(appointment.appointment_date).toLocaleTimeString()}
+              </p>
+            </div>
+            <div className="... ml-10 flex justify-center gap-5">
+              <h2>Phone Number:</h2>
+              <p className=" ml-10 font-bold text-black">
+                {appointment.clientPhoneNumber}
+              </p>
+            </div>
+            <div className="... ml-10 flex justify-center gap-5">
+              <h2>Date Created:</h2>
+              <p className=" ml-10 font-bold text-black">
+                {new Date(appointment.created_at).toLocaleDateString()}
+              </p>
+            </div>
           </div>
         </div>
 

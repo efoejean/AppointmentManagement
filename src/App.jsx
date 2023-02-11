@@ -1,15 +1,17 @@
+/* eslint-disable no-undef */
 import {
   createBrowserRouter,
   redirect,
   RouterProvider,
 } from "react-router-dom";
 import Appoint from "./components/Appointment";
+import ErrorPage from "./components/error-page";
+import Notification from "./components/Notification";
 import Table from "./components/Table/Table";
 import Cancel from "./routes/Cancel";
 import Complete from "./routes/Complete";
 import Root from "./routes/Root";
 import Scheduler from "./routes/Scheduler";
-import ErrorPage from "./components/error-page";
 import {
   createAppointment,
   getAppointments,
@@ -38,7 +40,16 @@ const createEditAppointment = async ({ request }) => {
         : await createAppointment(createdEditedAppointment);
 
     // Must return a redirect action
-
+    if (createdEditedAppointment.id) {
+      dispatch({
+        type: "notification",
+        payload: {
+          open: true,
+          severity: "success",
+          message: "Appointment updated successfully!",
+        },
+      });
+    }
     return redirect(`/appointment/${id}`);
   } catch (error) {
     // TODO: redirect to error page
@@ -107,6 +118,9 @@ const router = createBrowserRouter([
         },
       },
     ],
+  },
+  {
+    element: <Notification />,
   },
   {
     path: "*",

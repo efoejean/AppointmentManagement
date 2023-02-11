@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 export default function Root() {
@@ -31,9 +31,14 @@ export default function Root() {
   return (
     <>
       <Navbar />
+
       <main className="text-3ml mx-8 mt-4 mb-8 flex flex-col gap-y-4 text-center font-bold">
         {/* TODO: Is 'data' actually used or do we just need tableDAta? */}
-        <Outlet context={{ data: AppointmentsData, tableData }} />
+        {useNavigation.state === "loading" ? (
+          <div>Loading...</div>
+        ) : (
+          <Outlet context={{ data: AppointmentsData, tableData }} />
+        )}
       </main>
     </>
   );

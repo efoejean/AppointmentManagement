@@ -1,6 +1,6 @@
 import {
   Link,
-  useNavigate,
+  redirect,
   useOutletContext,
   useParams,
   useSubmit,
@@ -17,14 +17,28 @@ export default function Cancel() {
   return (
     <Dialog>
       <strong id="dialogDesc">
-        <p>Are you sure you want to cancel this appointment?</p>
+        <p className="px-8">
+          Are you sure you want to cancel the appointment with{" "}
+        </p>
         <p className="italic">{appointmentToCancel.clientName}</p>
+        <p>on</p>
+        <p className="italic">
+          {new Date(appointmentToCancel.appointment_date).toLocaleDateString()}
+        </p>
+        <p>at</p>
+        <p className="italic">
+          {new Date(appointmentToCancel.appointment_date).toLocaleTimeString()}
+        </p>
       </strong>
       <div className="flex justify-end">
         <button
           className="rounded-lg bg-red-500 px-4 py-2 text-white"
           type="submit"
           onClick={() => {
+            if (appointmentToCancel.status === "Cancelled") {
+              window.alert("Appointment already cancelled");
+              redirect(`/appointment/${id}`);
+            }
             submit(null, { method: "post" });
           }}
         >

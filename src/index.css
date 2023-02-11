@@ -257,4 +257,18 @@
     background-color: #287e5e;
     color: white;
   }
+
+  .card {
+    @apply overflow-hidden rounded-lg shadow-md;
+    width: 250px;
+    font-size: 20px;
+    height: 200px;
+    border-radius: 9px;
+    justify-content: space-between;
+    text-align: center;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
 }

@@ -19,8 +19,22 @@ export default function Complete() {
   return (
     <Dialog>
       <strong id="dialogDesc">
-        <p>Are you sure you want to mark this appointment as Completed</p>
+        <p className="px-8">
+          Are you sure you want to mark this appointment as Completed
+        </p>
         <p className="italic">{appointmentToComplete.clientName}</p>
+        <p>on</p>
+        <p className="italic">
+          {new Date(
+            appointmentToComplete.appointment_date
+          ).toLocaleDateString()}
+        </p>
+        <p>at</p>
+        <p className="italic">
+          {new Date(
+            appointmentToComplete.appointment_date
+          ).toLocaleTimeString()}
+        </p>
       </strong>
       <div className="flex justify-end">
         <button
