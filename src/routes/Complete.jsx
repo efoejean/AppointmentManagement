@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 import Dialog from "../components/Dialog";
 
-export default function Cancel() {
+export default function Complete() {
   const { id } = useParams();
   const { AppointmentsData } = useLoaderData();
   const submit = useSubmit();
 
-  const appointmentToCancel = AppointmentsData.find(
+  const appointmentToComplete = AppointmentsData.find(
     (appointment) => appointment.id === id
   );
 
@@ -20,16 +20,20 @@ export default function Cancel() {
     <Dialog>
       <strong id="dialogDesc">
         <p className="px-8">
-          Are you sure you want to cancel the appointment with{" "}
+          Are you sure you want to mark this appointment as Completed
         </p>
-        <p className="italic">{appointmentToCancel.clientName}</p>
+        <p className="italic">{appointmentToComplete.clientName}</p>
         <p>on</p>
         <p className="italic">
-          {new Date(appointmentToCancel.appointment_date).toLocaleDateString()}
+          {new Date(
+            appointmentToComplete.appointment_date
+          ).toLocaleDateString()}
         </p>
         <p>at</p>
         <p className="italic">
-          {new Date(appointmentToCancel.appointment_date).toLocaleTimeString()}
+          {new Date(
+            appointmentToComplete.appointment_date
+          ).toLocaleTimeString()}
         </p>
       </strong>
       <div className="flex justify-end">
@@ -37,21 +41,22 @@ export default function Cancel() {
           className="rounded-lg bg-red-500 px-4 py-2 text-white"
           type="submit"
           onClick={() => {
-            if (appointmentToCancel.status === "Canceled") {
-              window.alert("Appointment already canceled");
+            if (appointmentToComplete.status === "Completed") {
+              window.alert("Appointment already completed");
+
               redirect(`/appointment/${id}`);
             }
             submit(null, { method: "post" });
           }}
         >
-          Cancel
+          Complete
         </button>
         <Link
           to={`/appointment/${id}`}
           className="ml-2 rounded-lg bg-gray-500 px-4 py-2 text-white"
           onClick={() => {}}
         >
-          Back
+          Back to Appointments
         </Link>
       </div>
     </Dialog>
