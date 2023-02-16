@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Link, useLoaderData } from "react-router-dom";
-import Notification from "../components/Notification";
 import TBody from "../components/Table/TBody";
 import TH from "../components/Table/TH";
 export default function Appointments({ notify, setNotify }) {
@@ -37,7 +36,6 @@ export default function Appointments({ notify, setNotify }) {
   const { currentData, maxPage, dispatchPagination } = usePagination(tableData);
 
   const headCells = [
-    // TODO: 'id' header has been resolved. Need to reconcile the data to not show the 'id' data.
     { id: "start", label: "Date" },
     { id: "title", label: "Name" },
     { id: "clientPhone", label: "Phone Number" },
@@ -47,6 +45,7 @@ export default function Appointments({ notify, setNotify }) {
     { id: "status", label: "Status" },
     { id: "actionEdit", label: "Edit" },
     { id: "actionsCancel", label: "Cancel" },
+    { id: "actionsComplete", label: "Complete" },
   ];
 
   return (
@@ -88,9 +87,6 @@ export default function Appointments({ notify, setNotify }) {
           </TRow>
         </TFooter>
       </MuiTable>
-      <div>
-        <Notification notify={notify} setNotify={setNotify} />
-      </div>
     </>
   );
 }

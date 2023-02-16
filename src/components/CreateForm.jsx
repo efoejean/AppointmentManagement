@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import {
   Form,
   redirect,
@@ -167,10 +166,17 @@ export const action = async ({ request }) => {
 
     // Must return a redirect action
 
-    return redirect(`/appointment/${id}`);
+    if (createdEditedAppointment.id) {
+      return redirect(`/appointment/${id}`, {
+        message: "Appointment updated successfully",
+      });
+    } else if (!createdEditedAppointment.id) {
+      return redirect(`/appointment/${id}`, {
+        message: "Appointment created successfully",
+      });
+    }
   } catch (error) {
-    // TODO: redirect to error page
-    console.error(error);
+    return redirect("/error");
   }
 };
 

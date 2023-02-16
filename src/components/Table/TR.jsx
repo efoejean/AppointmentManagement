@@ -1,7 +1,9 @@
 import { EditOutlined } from "@mui/icons-material";
+import CheckIcon from "@mui/icons-material/Check";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Button, TableCell, TableRow } from "@mui/material";
 import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 
 export default function TR({ dataRow, id }) {
@@ -31,6 +33,13 @@ export default function TR({ dataRow, id }) {
         <Link to={`/cancel/${id}`}>
           <Button>
             <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
+          </Button>
+        </Link>
+      </TableCell>
+      <TableCell>
+        <Link to={`/Complete/${id}`}>
+          <Button>
+            <CheckIcon fontSize="small" style={{ color: "green" }} />
           </Button>
         </Link>
       </TableCell>

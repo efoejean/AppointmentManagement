@@ -22,7 +22,9 @@ export default function Root() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <main className="text-3ml mx-8 mt-4 mb-8 flex flex-col gap-y-4 text-center font-bold ">
+        <Outlet />
+      </main>
     </>
   );
 }
