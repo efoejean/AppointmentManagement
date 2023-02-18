@@ -93,7 +93,7 @@ export default function Appointments() {
           Show All
         </Button>
       </div>
-      <Box sx={{ height: 600, width: 0.97 }}>
+      <Box sx={{ height: 500, width: 1 }}>
         <DataGrid
           rows={filteredData}
           disableColumnFilter

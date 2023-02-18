@@ -26,9 +26,17 @@ export default function Root() {
   return (
     <>
       <Navbar />
-      <main className="text-3ml mx-8 mt-4 mb-8 flex flex-col gap-y-4 text-center font-bold ">
+      <main className="text-3ml mx-8 mt-4 mb-8 flex flex-col gap-y-4 pt-12 text-center font-bold ">
         <Outlet />
       </main>
+      <footer className=" page-footer  bg-gray-800">
+        <div>
+          <p className="p-2 text-center text-white">
+            © {new Date().getFullYear()} All Rights Reserved. Queen African Hair
+            Braiding
+          </p>
+        </div>
+      </footer>
     </>
   );
 }
