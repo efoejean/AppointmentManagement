@@ -10,7 +10,11 @@ export async function loader() {
 
     start: new Date(appointment.appointment_date),
     end: new Date(appointment.appointment_date),
-
+    appointment_date: new Date(
+      appointment.appointment_date
+    ).toLocaleDateString(),
+    time: new Date(appointment.appointment_date).toLocaleTimeString(),
+    price: `$${appointment.price}`,
     stylist: appointment.stylistName,
     title: appointment.clientName + " / " + appointment.service,
   }));

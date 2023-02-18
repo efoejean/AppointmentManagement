@@ -167,11 +167,11 @@ export const action = async ({ request }) => {
     // Must return a redirect action
 
     if (createdEditedAppointment.id) {
-      return redirect(`/appointment/${id}`, {
+      return redirect("/appointments", {
         message: "Appointment updated successfully",
       });
     } else if (!createdEditedAppointment.id) {
-      return redirect(`/appointment/${id}`, {
+      return redirect("/appointments", {
         message: "Appointment created successfully",
       });
     }

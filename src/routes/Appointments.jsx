@@ -1,97 +1,114 @@
-import usePagination from "@/hooks/usePagination";
-import {
-  Table as MuiTable,
-  TableCell as TCell,
-  TableFooter as TFooter,
-  TableRow as TRow,
-} from "@mui/material";
-import PropTypes from "prop-types";
+import { EditOutlined } from "@mui/icons-material";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import TBody from "../components/Table/TBody";
-import TH from "../components/Table/TH";
-export default function Appointments({ notify, setNotify }) {
+
+export default function Appointments() {
   const { AppointmentsData } = useLoaderData();
+  const [filteredData, setFilteredData] = useState(AppointmentsData);
 
-  const tableData = AppointmentsData.map(
-    ({
-      id,
-      appointment_date,
-      clientName,
-      clientPhoneNumber,
-      deposit,
-      service,
-      price,
-      status,
-    }) => ({
-      id,
-      appointment_date: new Date(appointment_date).toLocaleDateString(),
-      clientName,
-      clientPhoneNumber,
-      deposit,
-      service,
-      price: `$${price}`,
-      status,
-    })
-  );
-  const { currentData, maxPage, dispatchPagination } = usePagination(tableData);
+  function showAll() {
+    setFilteredData(AppointmentsData);
+  }
 
-  const headCells = [
-    { id: "start", label: "Date" },
-    { id: "title", label: "Name" },
-    { id: "clientPhone", label: "Phone Number" },
-    { id: "deposit", label: "Deposit" },
-    { id: "service", label: "Service" },
-    { id: "price", label: "Price" },
-    { id: "status", label: "Status" },
-    { id: "actionEdit", label: "Edit" },
-    { id: "actionsCancel", label: "Cancel" },
-    { id: "actionsComplete", label: "Complete" },
+  function showUpcoming() {
+    const today = new Date();
+    const filterData = filteredData.filter((appointment) => {
+      const date = new Date(appointment.appointment_date);
+      return date >= today;
+    });
+    setFilteredData(filterData);
+  }
+
+  const columns = [
+    { field: "id", headerName: "ID", hide: true },
+    { field: "appointment_date", type: "date", headerName: "Date", width: 150 },
+    { field: "time", headerName: "Time", width: 150 },
+    { field: "clientName", headerName: "Name", width: 150 },
+    { field: "clientPhoneNumber", headerName: "Phone Number", width: 150 },
+    { field: "deposit", headerName: "Deposit", width: 100 },
+    { field: "service", headerName: "Service", width: 150 },
+    { field: "price", headerName: "Price", width: 150 },
+    { field: "status", headerName: "Status", width: 125 },
+    {
+      field: "actionEdit",
+      headerName: "Edit",
+      width: 80,
+      renderCell: (params) => {
+        return (
+          <Link to={`/appointment/${params.row.id}`}>
+            <Button>
+              <EditOutlined fontSize="small" />
+            </Button>
+          </Link>
+        );
+      },
+    },
+    {
+      field: "actionsCancel",
+      headerName: "Cancel",
+      width: 80,
+      renderCell: (params) => {
+        return (
+          <Link to={`/cancel/${params.row.id}`}>
+            <Button>
+              <CloseOutlinedIcon fontSize="small" style={{ color: "red" }} />
+            </Button>
+          </Link>
+        );
+      },
+    },
+    {
+      field: "actionsComplete",
+      headerName: "Complete",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <Link to={`/complete/${params.row.id}`}>
+            <Button>
+              <CheckIcon fontSize="small" style={{ color: "green" }} />
+            </Button>
+          </Link>
+        );
+      },
+    },
   ];
 
   return (
     <>
-      <MuiTable className="TableAppoint">
-        <TH headCells={headCells} />
-
-        <TBody data={currentData} />
-
-        <TFooter>
-          <TRow>
-            <TCell
-              colSpan={headCells.length}
-              className="text-center [&>*]:mx-4"
-            >
-              <label htmlFor="page" className="sr-only">
-                Page
-              </label>
-              <Link to={"/"} className="white mr-4">
-                ⬅️ Prev
-              </Link>
-              <Link to={"/"} className="white">
-                Next ➡️
-              </Link>
-              <input
-                id="page"
-                className="w-24 font-medium text-sky-700"
-                type="number"
-                placeholder="1"
-                onInput={() => {
-                  const page = Number(event.target.value);
-                  if (page >= 1 && page <= maxPage) {
-                    dispatchPagination({ payload: page });
-                  }
-                }}
-              />
-              &nbsp;/&nbsp;{maxPage}
-            </TCell>
-          </TRow>
-        </TFooter>
-      </MuiTable>
+      <h1>Appointments</h1>
+      <div className="container">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => showUpcoming()}
+        >
+          Upcoming Appointments
+        </Button>
+        <Button variant="contained" color="primary" onClick={() => showAll()}>
+          Show All
+        </Button>
+      </div>
+      <Box sx={{ height: 600, width: 0.97 }}>
+        <DataGrid
+          rows={filteredData}
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+        />
+      </Box>
     </>
   );
 }
-
-Appointments.propTypes = {
-  notify: PropTypes.bool.isRequired,
-  setNotify: PropTypes.func.isRequired,
-};

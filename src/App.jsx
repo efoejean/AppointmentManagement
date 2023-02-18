@@ -10,6 +10,7 @@ import "./index.css";
 import Appointments from "./routes/Appointments";
 import Cancel from "./routes/Cancel";
 import Complete from "./routes/Complete";
+import Index from "./routes/Index";
 import Root, { loader as rootLoader } from "./routes/Root";
 import Scheduler from "./routes/Scheduler";
 import { updateOneAppointment } from "./services/axios";
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     loader: rootLoader,
     action: createEditAppointment,
     children: [
+      { index: true, element: <Index /> },
       {
         path: "/appointments",
         element: <Appointments />,
@@ -41,7 +43,7 @@ const router = createBrowserRouter([
         action: createEditAppointment,
       },
       {
-        path: "Cancel/:id",
+        path: "cancel/:id",
         element: <Cancel />,
         loader: rootLoader,
         action: async ({ params }) => {
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "Complete/:id",
+        path: "complete/:id",
         element: <Complete />,
         loader: rootLoader,
         action: async ({ params }) => {
