@@ -53,6 +53,7 @@ export default function CreateForm({ setIsOpen }) {
             placeholder="Phone Number"
             className="form--input "
             defaultValue={currentAppointment?.clientPhoneNumber}
+            maxLength="10"
             required
           />
         </div>
