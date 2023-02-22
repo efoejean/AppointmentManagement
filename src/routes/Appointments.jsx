@@ -38,9 +38,23 @@ export default function Appointments() {
       valueFormatter: (params) => {
         return new Date(params.value).toLocaleDateString();
       },
+      headerAlign: "center",
+      align: "center",
     },
-    { field: "time", headerName: "Time", width: 150 },
-    { field: "clientName", headerName: "Name", width: 150 },
+    {
+      field: "time",
+      headerName: "Time",
+      width: 150,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "clientName",
+      headerName: "Name",
+      width: 150,
+      headerAlign: "center",
+      align: "center",
+    },
     {
       field: "clientPhoneNumber",
       headerName: "Phone Number",
@@ -48,9 +62,23 @@ export default function Appointments() {
       valueFormatter: (params) => {
         return params.value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
       },
+      headerAlign: "center",
+      align: "center",
     },
-    { field: "deposit", headerName: "Deposit", width: 100 },
-    { field: "service", headerName: "Service", width: 150 },
+    {
+      field: "deposit",
+      headerName: "Deposit",
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "service",
+      headerName: "Service",
+      width: 150,
+      headerAlign: "center",
+      align: "center",
+    },
     {
       field: "price",
       headerName: "Price",
@@ -58,8 +86,16 @@ export default function Appointments() {
       valueFormatter: (params) => {
         return "$" + params.value;
       },
+      headerAlign: "center",
+      align: "center",
     },
-    { field: "status", headerName: "Status", width: 125 },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 125,
+      headerAlign: "center",
+      align: "center",
+    },
     {
       field: "actionEdit",
       headerName: "Edit",
@@ -73,6 +109,8 @@ export default function Appointments() {
           </Link>
         );
       },
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "actionsCancel",
@@ -87,6 +125,8 @@ export default function Appointments() {
           </Link>
         );
       },
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "actionsComplete",
@@ -101,6 +141,8 @@ export default function Appointments() {
           </Link>
         );
       },
+      headerAlign: "center",
+      align: "center",
     },
   ];
 

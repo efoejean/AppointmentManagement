@@ -10,11 +10,12 @@ export async function loader() {
 
     start: new Date(appointment.appointment_date),
     end: new Date(appointment.appointment_date),
-
     time: new Date(appointment.appointment_date).toLocaleTimeString(),
     stylist: appointment.stylistName,
     title: appointment.clientName + " / " + appointment.service,
-  }));
+  })).sort((a, b) => {
+    return new Date(a.appointment_date) - new Date(b.appointment_date);
+  });
 
   return { AppointmentsData };
 }
