@@ -22,6 +22,13 @@ const localizer = dateFnsLocalizer({
 export default function Scheduler() {
   const { AppointmentsData } = useLoaderData();
 
+  const orderAppointments = AppointmentsData.filter((appointment) => {
+    const date = new Date(appointment.appointment_date);
+    return date >= new Date();
+  }).filter((appointment) => {
+    return appointment.status === "Scheduled";
+  });
+
   const eventStyleGet = (event) => {
     const newStyle = {
       backgroundColor: "green",
@@ -49,7 +56,7 @@ export default function Scheduler() {
     <div>
       <Calendar
         localizer={localizer}
-        events={AppointmentsData}
+        events={orderAppointments}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500, margin: 20 }}

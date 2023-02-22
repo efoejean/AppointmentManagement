@@ -17,22 +17,48 @@ export default function Appointments() {
 
   function showUpcoming() {
     const today = new Date();
-    const filterData = filteredData.filter((appointment) => {
-      const date = new Date(appointment.appointment_date);
-      return date >= today;
-    });
+    const filterData = filteredData
+      .filter((appointment) => {
+        const date = new Date(appointment.appointment_date);
+        return date >= today;
+      })
+      .filter((appointment) => {
+        return appointment.status === "Scheduled";
+      });
     setFilteredData(filterData);
   }
 
   const columns = [
     { field: "id", headerName: "ID", hide: true },
-    { field: "appointment_date", type: "date", headerName: "Date", width: 150 },
+    {
+      field: "appointment_date",
+      type: "date",
+      headerName: "Date",
+      width: 150,
+      valueFormatter: (params) => {
+        return new Date(params.value).toLocaleDateString();
+      },
+    },
     { field: "time", headerName: "Time", width: 150 },
     { field: "clientName", headerName: "Name", width: 150 },
-    { field: "clientPhoneNumber", headerName: "Phone Number", width: 150 },
+    {
+      field: "clientPhoneNumber",
+      headerName: "Phone Number",
+      width: 150,
+      valueFormatter: (params) => {
+        return params.value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+      },
+    },
     { field: "deposit", headerName: "Deposit", width: 100 },
     { field: "service", headerName: "Service", width: 150 },
-    { field: "price", headerName: "Price", width: 150 },
+    {
+      field: "price",
+      headerName: "Price",
+      width: 150,
+      valueFormatter: (params) => {
+        return "$" + params.value;
+      },
+    },
     { field: "status", headerName: "Status", width: 125 },
     {
       field: "actionEdit",
